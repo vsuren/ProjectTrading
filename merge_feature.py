@@ -179,9 +179,8 @@ def merge_features(df_prices, df_features, run_id):
     log(f"Merged dataset: {merged.shape[0]:,} rows, {merged.shape[1]:,} columns.")
     return merged
 
-
 # ============================================================
-# Write to SQL (Batched Insert — FINAL FIX)
+# Write to SQL (Temp Table + pandas.to_sql + MERGE — Option C)
 # ============================================================
 
 def write_to_sql(engine, df, dry_run):
@@ -215,47 +214,65 @@ def write_to_sql(engine, df, dry_run):
     df["IsAfterHours"] = df["IsAfterHours"].astype(int)
 
     # DATETIME columns
-    df["PriceTimestamp"] = pd.to_datetime(df["PriceTimestamp"], errors="coerce").dt.to_pydatetime()
-    df["RunTimestamp"] = pd.to_datetime(df["RunTimestamp"], errors="coerce").dt.to_pydatetime()
+    df["PriceTimestamp"] = pd.to_datetime(df["PriceTimestamp"], errors="coerce")
+    df["RunTimestamp"] = pd.to_datetime(df["RunTimestamp"], errors="coerce")
 
-    # Replace NaN with None BEFORE tuple conversion
+    # Replace NaN with None
     df = df.where(pd.notnull(df), None)
 
-    # Convert to tuples
-    rows = list(df.itertuples(index=False, name=None))
-
-    # FINAL FIX: convert numpy.nan inside tuples → None
-    clean_rows = []
-    for r in rows:
-        clean_rows.append(
-            tuple(None if (isinstance(x, float) and np.isnan(x)) else x for x in r)
-        )
-
-    # Build SQL
     columns = df.columns.tolist()
     col_list = ", ".join(f"[{c}]" for c in columns)
-    placeholders = ", ".join(["?"] * len(columns))
-    sql = f"INSERT INTO dbo.tblMergedFeatures ({col_list}) VALUES ({placeholders})"
 
-    conn = engine.raw_connection()
-    cursor = conn.cursor()
-    cursor.fast_executemany = True
+    # 1. Drop temp table if exists
+    with engine.begin() as conn:
+        conn.exec_driver_sql(
+            "IF OBJECT_ID('tempdb..##TempMergeFeatures') IS NOT NULL DROP TABLE ##TempMergeFeatures;"
+        )
 
-    batch_size = 100
-    total = len(clean_rows)
-    log(f"Writing {total:,} rows to tblMergedFeatures in batches of {batch_size}...")
+    # 2. Create empty temp table with correct schema
+    with engine.begin() as conn:
+        conn.exec_driver_sql(
+            f"SELECT TOP 0 {col_list} INTO ##TempMergeFeatures FROM dbo.tblMergedFeatures;"
+        )
 
-    for start in range(0, total, batch_size):
-        end = start + batch_size
-        batch = clean_rows[start:end]
-        log(f"Inserting batch {start//batch_size + 1} ({len(batch)} rows)...")
-        cursor.executemany(sql, batch)
-        conn.commit()
+    # 3. Use pandas.to_sql to load data into temp table
+    log(f"Loading {len(df):,} rows into ##TempMergeFeatures via pandas.to_sql...")
+    df.to_sql(
+        name="##TempMergeFeatures",
+        con=engine,
+        if_exists="append",
+        index=False,
+        method=None
+    )
 
-    cursor.close()
-    conn.close()
-    log("All batches inserted successfully.")
+    # 4. MERGE from temp table into target
+    update_clause = ", ".join(
+        f"Target.[{c}] = Source.[{c}]"
+        for c in columns
+        if c not in ["Symbol", "PriceTimestamp"]
+    )
 
+    merge_sql = f"""
+    MERGE dbo.tblMergedFeatures AS Target
+    USING ##TempMergeFeatures AS Source
+        ON Target.Symbol = Source.Symbol
+       AND Target.PriceTimestamp = Source.PriceTimestamp
+    WHEN MATCHED THEN
+        UPDATE SET {update_clause}
+    WHEN NOT MATCHED THEN
+        INSERT ({col_list})
+        VALUES ({col_list});
+    """
+
+    log("Running MERGE from ##TempMergeFeatures → tblMergedFeatures...")
+    with engine.begin() as conn:
+        conn.exec_driver_sql(merge_sql)
+
+    # 5. Drop temp table
+    with engine.begin() as conn:
+        conn.exec_driver_sql("DROP TABLE ##TempMergeFeatures;")
+
+    log("UPSERT MERGE completed successfully (pandas.to_sql method).")
 
 # ============================================================
 # Main

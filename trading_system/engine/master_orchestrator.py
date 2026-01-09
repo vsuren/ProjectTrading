@@ -13,9 +13,9 @@ from trading_system.engine.logger import log, set_log_prefix
 # INTERNAL FLAGS — FULL BOOLEAN CONTROL
 # ============================================================
 
-RUN_INGEST = True
-RUN_MERGE = True
-RUN_INDICATORS = True
+RUN_INGEST = False
+RUN_MERGE = False
+RUN_INDICATORS = False
 RUN_FEATURES = True
 RUN_LABELS = False          # <-- NEW FLAG
 DRY_RUN = False            # Applies ONLY to indicators + features + labels

@@ -276,7 +276,7 @@ def prepare_labeled_features_df(df, run_id):
     df = df.copy()
     df["LoadTimestamp"] = datetime.now()
     df["SourceRunID"] = run_id
-
+    df["RunId"] = run_id
     df_out = df.copy()
     log(f"Prepared final DataFrame (dynamic): {df_out.shape[0]:,} rows, {df_out.shape[1]} columns.")
     return df_out
