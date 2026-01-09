@@ -243,6 +243,7 @@ def write_to_sql(engine, df, dry_run):
         if_exists="append",
         index=False,
         method=None
+
     )
 
     # 4. MERGE from temp table into target

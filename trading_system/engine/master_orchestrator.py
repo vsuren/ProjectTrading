@@ -16,8 +16,8 @@ from trading_system.engine.logger import log, set_log_prefix
 RUN_INGEST = False
 RUN_MERGE = False
 RUN_INDICATORS = False
-RUN_FEATURES = True
-RUN_LABELS = False          # <-- NEW FLAG
+RUN_FEATURES = False
+RUN_LABELS = True          # <-- NEW FLAG
 DRY_RUN = False            # Applies ONLY to indicators + features + labels
 
 # Script paths
