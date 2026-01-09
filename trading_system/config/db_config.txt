@@ -1,4 +1,0 @@
-SERVER=suresh-trading-sql.database.windows.net
-DATABASE=TradingDB
-USERNAME=tradingadmin
-PASSWORD=Aravinthan#1964

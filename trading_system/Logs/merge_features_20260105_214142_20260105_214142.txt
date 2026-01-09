@@ -1,5 +1,0 @@
-2026-01-05 21:41:42 [INFO] ==== Merge Features Started (run_id=MERGE_20260105_214142) ====
-2026-01-05 21:41:42 [INFO] Dry-run mode: False
-2026-01-05 21:41:42 [INFO] Creating SQLAlchemy engine...
-2026-01-05 21:41:43 [INFO] Connected to Azure SQL successfully.
-2026-01-05 21:41:43 [INFO] Loaded 28,828 raw price rows.

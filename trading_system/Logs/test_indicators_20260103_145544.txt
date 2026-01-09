@@ -1,1 +1,0 @@
-2026-01-03 14:55:44 [INFO] === TEST RUN: Indicator Validation Suite ===

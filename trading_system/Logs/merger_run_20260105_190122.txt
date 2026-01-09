@@ -1,6 +1,0 @@
-2026-01-05 19:01:22 [INFO] === MERGE STARTED: Staging -> RawPrices ===
-2026-01-05 19:01:22 [INFO] DB Server: suresh-trading-sql.database.windows.net, Database: TradingDB
-2026-01-05 19:01:22 [INFO] Validating staging timestamps...
-2026-01-05 19:01:22 [INFO] Timestamp validation passed - no invalid rows.
-2026-01-05 19:01:22 [INFO] Fetching pending rows per symbol...
-2026-01-05 19:01:22 [INFO] No pending rows in staging. Nothing to merge.

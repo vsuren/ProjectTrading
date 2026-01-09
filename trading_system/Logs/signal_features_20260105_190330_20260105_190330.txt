@@ -1,7 +1,0 @@
-2026-01-05 19:03:30 [INFO] ==== Signal Features Started (run_id=SIGNAL_20260105_190330) ====
-2026-01-05 19:03:30 [INFO] Dry-run mode: False, REBUILD_MODE: False
-2026-01-05 19:03:30 [INFO] Creating SQLAlchemy engine for Signal Features...
-2026-01-05 19:03:30 [INFO] Connected to Azure SQL successfully.
-2026-01-05 19:03:30 [INFO] Loaded 0 incremental rows from tblMergedFeatures.
-2026-01-05 19:03:30 [INFO] No new rows found in tblMergedFeatures. Nothing to insert into tblSignalFeatures.
-2026-01-05 19:03:30 [INFO] ==== Signal Features Completed (no work) ====

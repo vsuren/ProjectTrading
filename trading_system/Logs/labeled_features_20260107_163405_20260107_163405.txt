@@ -1,4 +1,0 @@
-2026-01-07 16:34:05 [INFO] ==== Labeled Features Started (run_id=LABEL_20260107_163405) ====
-2026-01-07 16:34:05 [INFO] Dry-run mode: True, REBUILD_MODE: False, HorizonMinutes: 5, LabelType: DIRECTION_5M, LabelVersion: v1, FeatureVersion: v1
-2026-01-07 16:34:05 [INFO] Creating SQLAlchemy engine for Labeled Features...
-2026-01-07 16:34:06 [INFO] Connected to Azure SQL successfully.

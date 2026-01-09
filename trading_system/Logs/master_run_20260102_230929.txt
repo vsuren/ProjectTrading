@@ -1,3 +1,0 @@
-2026-01-02 23:09:29 [INFO] === MASTER RUN STARTED ===
-2026-01-02 23:09:29 [INFO] DRY_RUN mode: False
-2026-01-02 23:09:29 [INFO] Loaded 19 active indicators.
