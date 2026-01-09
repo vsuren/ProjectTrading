@@ -1,0 +1,163 @@
+2026-01-03 17:35:42 [INFO] [MERGE_20260103_173542] ==== Merge Features Started (run_id=MERGE_20260103_173542) ====
+2026-01-03 17:35:42 [INFO] [MERGE_20260103_173542] Log file: logs\merge_features_20260103_173542.log
+2026-01-03 17:35:42 [INFO] [MERGE_20260103_173542] Dry-run mode: True
+2026-01-03 17:35:42 [INFO] [MERGE_20260103_173542] Creating SQLAlchemy engine...
+2026-01-03 17:35:43 [INFO] [MERGE_20260103_173542] Connected to Azure SQL successfully.
+2026-01-03 17:35:43 [INFO] [MERGE_20260103_173542] Loaded 25,740 raw price rows.
+2026-01-03 17:35:43 [ERROR] [MERGE_20260103_173542] Failed to load indicators.
+Traceback (most recent call last):
+  File "c:\Users\v_sur\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "c:\Users\v_sur\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+pyodbc.ProgrammingError: ('42S22', "[42S22] [Microsoft][ODBC Driver 18 for SQL Server][SQL Server]Invalid column name 'Value'. (207) (SQLExecDirectW)")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "E:\ProjectTrading\merge_feature.py", line 125, in load_indicators
+    df = pd.read_sql(query, engine)
+  File "c:\Users\v_sur\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\pandas\io\sql.py", line 736, in read_sql
+    return pandas_sql.read_query(
+           ~~~~~~~~~~~~~~~~~~~~~^
+        sql,
+        ^^^^
+    ...<6 lines>...
+        dtype=dtype,
+        ^^^^^^^^^^^^
+    )
+    ^
+  File "c:\Users\v_sur\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\pandas\io\sql.py", line 1848, in read_query
+    result = self.execute(sql, params)
+  File "c:\Users\v_sur\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\pandas\io\sql.py", line 1671, in execute
+    return self.con.exec_driver_sql(sql, *args)
+           ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "c:\Users\v_sur\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\sqlalchemy\engine\base.py", line 1779, in exec_driver_sql
+    ret = self._execute_context(
+        dialect,
+    ...<5 lines>...
+        distilled_parameters,
+    )
+  File "c:\Users\v_sur\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\sqlalchemy\engine\base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        dialect, context, statement, parameters
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "c:\Users\v_sur\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\sqlalchemy\engine\base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        e, str_statement, effective_parameters, cursor, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "c:\Users\v_sur\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\sqlalchemy\engine\base.py", line 2363, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "c:\Users\v_sur\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "c:\Users\v_sur\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+sqlalchemy.exc.ProgrammingError: (pyodbc.ProgrammingError) ('42S22', "[42S22] [Microsoft][ODBC Driver 18 for SQL Server][SQL Server]Invalid column name 'Value'. (207) (SQLExecDirectW)")
+[SQL: 
+        SELECT
+            Symbol,
+            PriceTimestamp,
+            IndicatorName,
+            FieldName,
+            Value
+        FROM dbo.tblIndicators
+    ]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2026-01-03 17:35:43 [ERROR] [MERGE_20260103_173542] Fatal error in merge pipeline.
+Traceback (most recent call last):
+  File "c:\Users\v_sur\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "c:\Users\v_sur\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+pyodbc.ProgrammingError: ('42S22', "[42S22] [Microsoft][ODBC Driver 18 for SQL Server][SQL Server]Invalid column name 'Value'. (207) (SQLExecDirectW)")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "E:\ProjectTrading\merge_feature.py", line 255, in main
+    df_ind = load_indicators(engine, logger)
+  File "E:\ProjectTrading\merge_feature.py", line 125, in load_indicators
+    df = pd.read_sql(query, engine)
+  File "c:\Users\v_sur\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\pandas\io\sql.py", line 736, in read_sql
+    return pandas_sql.read_query(
+           ~~~~~~~~~~~~~~~~~~~~~^
+        sql,
+        ^^^^
+    ...<6 lines>...
+        dtype=dtype,
+        ^^^^^^^^^^^^
+    )
+    ^
+  File "c:\Users\v_sur\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\pandas\io\sql.py", line 1848, in read_query
+    result = self.execute(sql, params)
+  File "c:\Users\v_sur\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\pandas\io\sql.py", line 1671, in execute
+    return self.con.exec_driver_sql(sql, *args)
+           ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "c:\Users\v_sur\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\sqlalchemy\engine\base.py", line 1779, in exec_driver_sql
+    ret = self._execute_context(
+        dialect,
+    ...<5 lines>...
+        distilled_parameters,
+    )
+  File "c:\Users\v_sur\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\sqlalchemy\engine\base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        dialect, context, statement, parameters
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "c:\Users\v_sur\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\sqlalchemy\engine\base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        e, str_statement, effective_parameters, cursor, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "c:\Users\v_sur\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\sqlalchemy\engine\base.py", line 2363, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "c:\Users\v_sur\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "c:\Users\v_sur\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+sqlalchemy.exc.ProgrammingError: (pyodbc.ProgrammingError) ('42S22', "[42S22] [Microsoft][ODBC Driver 18 for SQL Server][SQL Server]Invalid column name 'Value'. (207) (SQLExecDirectW)")
+[SQL: 
+        SELECT
+            Symbol,
+            PriceTimestamp,
+            IndicatorName,
+            FieldName,
+            Value
+        FROM dbo.tblIndicators
+    ]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2026-01-03 17:35:43 [ERROR] [MERGE_20260103_173542] Merge did NOT complete successfully.

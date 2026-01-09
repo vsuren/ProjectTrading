@@ -1,0 +1,21 @@
+2026-01-03 20:59:30 [INFO] === MASTER ORCHESTRATOR STARTED ===
+2026-01-03 20:59:30 [INFO] STEP 1 SKIPPED
+2026-01-03 20:59:30 [INFO] STEP 2: Merge Staging → RawPrices
+2026-01-03 20:59:30 [INFO] Running: ['C:\\Users\\v_sur\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe', 'E:\\ProjectTrading\\trading_system\\ingestion\\merger.py']
+2026-01-03 20:59:31 [INFO] ----- STDOUT -----
+2026-01-03 20:59:31 [INFO] ----- STDERR -----
+2026-01-03 20:59:31 [INFO] Traceback (most recent call last):
+  File "E:\ProjectTrading\trading_system\ingestion\merger.py", line 257, in <module>
+    run_merger()
+    ~~~~~~~~~~^^
+  File "E:\ProjectTrading\trading_system\ingestion\merger.py", line 55, in run_merger
+    log("=== MERGE STARTED: Staging \u2192 RawPrices ===")
+    ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\ProjectTrading\trading_system\engine\logger.py", line 49, in log
+    print(line)
+    ~~~~~^^^^^^
+  File "C:\Users\v_sur\AppData\Local\Python\pythoncore-3.14-64\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2192' in position 54: character maps to <undefined>
+2026-01-03 20:59:31 [INFO] ERROR: Script failed with exit code 1

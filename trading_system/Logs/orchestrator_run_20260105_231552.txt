@@ -1,0 +1,10 @@
+2026-01-05 23:15:52 [INFO] === MASTER ORCHESTRATOR STARTED ===
+2026-01-05 23:15:52 [INFO] STEP 1: Ingestion -> Staging
+2026-01-05 23:15:52 [INFO] Running: ['C:\\trading_function\\.venv\\Scripts\\python.exe', 'E:\\ProjectTrading\\trading_system\\ingestion\\ingestion_1m_range_staging_day.py']
+2026-01-05 23:15:52 [INFO] ----- STDOUT -----
+2026-01-05 23:15:52 [INFO] ----- STDERR -----
+2026-01-05 23:15:52 [INFO] Traceback (most recent call last):
+  File "E:\ProjectTrading\trading_system\ingestion\ingestion_1m_range_staging_day.py", line 3, in <module>
+    import pyodbc
+ModuleNotFoundError: No module named 'pyodbc'
+2026-01-05 23:15:52 [INFO] ERROR: Script failed with exit code 1

@@ -1,0 +1,14 @@
+2026-01-07 20:56:33 [INFO] ==== Labeled Features Started (run_id=LABEL_20260107_205633) ====
+2026-01-07 20:56:33 [INFO] Dry-run mode: False, REBUILD_MODE: False
+2026-01-07 20:56:33 [INFO] Creating SQLAlchemy engine for Labeled Features...
+2026-01-07 20:56:33 [INFO] Connected to Azure SQL successfully.
+2026-01-07 20:56:33 [INFO] No existing labeled rows found. Full backfill will be performed.
+2026-01-07 20:56:33 [INFO] tblMergedFeatures columns: ['Symbol', 'PriceTimestamp', 'OpenPrice', 'HighPrice', 'LowPrice', 'ClosePrice', 'Volume', 'ADX_14', 'ATR_14', 'BBANDS_LOWER_20', 'BBANDS_MIDDLE_20', 'BBANDS_UPPER_20', 'BOLL_PCTB_20', 'BOLL_WIDTH_20', 'CCI_20', 'EMA_20', 'EMA_200', 'EMA_50', 'EMA_9', 'RSI_14', 'SMA_20', 'SMA_200', 'STOCH_D_14', 'STOCH_K_14', 'SUPERTREND_10', 'WILLIAMS_R_14', 'DayOfWeek', 'IsRegularSession', 'IsAfterHours', 'RunTimestamp', 'MergeRunId', 'SourceIndicatorCount', 'MissingIndicatorCount']
+2026-01-07 20:56:48 [INFO] Loaded 284,325 rows from tblMergedFeatures (dynamic schema).
+2026-01-07 20:56:48 [INFO] Loaded 31,049 rows from tblRawPrices.
+2026-01-07 20:56:49 [INFO] Joined features with future close. Rows: 284,325.
+2026-01-07 20:56:49 [INFO] Label computation completed in 0.27 seconds.
+2026-01-07 20:56:49 [INFO] Prepared final DataFrame (dynamic): 284,325 rows, 46 columns.
+2026-01-07 20:56:49 [INFO] Numeric columns detected for conversion/clipping: ['OpenPrice', 'HighPrice', 'LowPrice', 'Close_t', 'Volume', 'ADX_14', 'ATR_14', 'BBANDS_LOWER_20', 'BBANDS_MIDDLE_20', 'BBANDS_UPPER_20', 'BOLL_PCTB_20', 'BOLL_WIDTH_20', 'CCI_20', 'EMA_20', 'EMA_200', 'EMA_50', 'EMA_9', 'RSI_14', 'SMA_20', 'SMA_200', 'STOCH_D_14', 'STOCH_K_14', 'SUPERTREND_10', 'WILLIAMS_R_14', 'DayOfWeek', 'SourceIndicatorCount', 'MissingIndicatorCount', 'FutureClose_tN', 'Return_t_to_tN', 'Label', 'HorizonMinutes', 'IsTrainableRow', 'IsOutlier']
+2026-01-07 20:57:50 [INFO] Writing 284,325 rows to tblLabeledFeatures in batches of 100...
+2026-01-07 20:57:50 [INFO] Inserting batch 1 (100 rows)...

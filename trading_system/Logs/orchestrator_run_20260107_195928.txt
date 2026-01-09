@@ -1,0 +1,61 @@
+2026-01-07 19:59:28 [INFO] === MASTER ORCHESTRATOR STARTED ===
+2026-01-07 19:59:29 [INFO] STEP 1 SKIPPED
+2026-01-07 19:59:29 [INFO] STEP 2 SKIPPED
+2026-01-07 19:59:29 [INFO] STEP 3 SKIPPED
+2026-01-07 19:59:29 [INFO] STEP 4 SKIPPED
+2026-01-07 19:59:29 [INFO] STEP 5: Generate Labels → tblLabeledFeatures
+2026-01-07 19:59:29 [INFO] Running: ['c:\\Users\\v_sur\\AppData\\Local\\Programs\\Python\\Python311\\python.exe', 'E:\\ProjectTrading\\generate_labeled_features.py']
+2026-01-07 20:27:32 [INFO] ----- STDOUT -----
+2026-01-07 20:27:33 [INFO] 2026-01-07 19:59:30 [INFO] ==== Labeled Features Started (run_id=LABEL_20260107_195930) ====
+2026-01-07 19:59:30 [INFO] Dry-run mode: False, REBUILD_MODE: False
+2026-01-07 19:59:30 [INFO] Creating SQLAlchemy engine for Labeled Features...
+2026-01-07 19:59:31 [INFO] Connected to Azure SQL successfully.
+2026-01-07 19:59:31 [INFO] No existing labeled rows found. Full backfill will be performed.
+2026-01-07 19:59:31 [INFO] tblMergedFeatures columns: ['Symbol', 'PriceTimestamp', 'OpenPrice', 'HighPrice', 'LowPrice', 'ClosePrice', 'Volume', 'ADX_14', 'ATR_14', 'BBANDS_LOWER_20', 'BBANDS_MIDDLE_20', 'BBANDS_UPPER_20', 'BOLL_PCTB_20', 'BOLL_WIDTH_20', 'CCI_20', 'EMA_20', 'EMA_200', 'EMA_50', 'EMA_9', 'RSI_14', 'SMA_20', 'SMA_200', 'STOCH_D_14', 'STOCH_K_14', 'SUPERTREND_10', 'WILLIAMS_R_14', 'DayOfWeek', 'IsRegularSession', 'IsAfterHours', 'RunTimestamp', 'MergeRunId', 'SourceIndicatorCount', 'MissingIndicatorCount']
+2026-01-07 19:59:42 [INFO] Loaded 284,325 rows from tblMergedFeatures (dynamic schema).
+2026-01-07 19:59:42 [INFO] Loaded 31,049 rows from tblRawPrices.
+2026-01-07 19:59:42 [INFO] Joined features with future close. Rows: 284,325.
+2026-01-07 19:59:43 [INFO] Label computation completed in 0.30 seconds.
+2026-01-07 19:59:43 [INFO] Prepared final DataFrame (dynamic): 284,325 rows, 46 columns.
+2026-01-07 19:59:43 [INFO] Numeric columns detected for conversion/clipping: ['OpenPrice', 'HighPrice', 'LowPrice', 'Close_t', 'Volume', 'ADX_14', 'ATR_14', 'BBANDS_LOWER_20', 'BBANDS_MIDDLE_20', 'BBANDS_UPPER_20', 'BOLL_PCTB_20', 'BOLL_WIDTH_20', 'CCI_20', 'EMA_20', 'EMA_200', 'EMA_50', 'EMA_9', 'RSI_14', 'SMA_20', 'SMA_200', 'STOCH_D_14', 'STOCH_K_14', 'SUPERTREND_10', 'WILLIAMS_R_14', 'DayOfWeek', 'SourceIndicatorCount', 'MissingIndicatorCount', 'FutureClose_tN', 'Return_t_to_tN', 'Label', 'HorizonMinutes', 'IsTrainableRow', 'IsOutlier']
+2026-01-07 20:00:46 [INFO] Writing 284,325 rows to tblLabeledFeatures in batches of 100...
+2026-01-07 20:00:46 [INFO] Inserting batch 1 (100 rows)...
+2026-01-07 20:27:33 [INFO] ----- STDERR -----
+2026-01-07 20:27:33 [INFO] Traceback (most recent call last):
+  File "c:\Users\v_sur\.vscode\extensions\ms-python.debugpy-2025.18.0-win32-x64\bundled\libs\debugpy\_vendored\pydevd\pydevd.py", line 3729, in <module>
+    main()
+  File "c:\Users\v_sur\.vscode\extensions\ms-python.debugpy-2025.18.0-win32-x64\bundled\libs\debugpy\_vendored\pydevd\pydevd.py", line 3714, in main
+    globals = debugger.run(setup["file"], None, None, is_module)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\v_sur\.vscode\extensions\ms-python.debugpy-2025.18.0-win32-x64\bundled\libs\debugpy\_vendored\pydevd\pydevd.py", line 2698, in run
+    return self._exec(is_module, entry_point_fn, module_name, file, globals, locals)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\v_sur\.vscode\extensions\ms-python.debugpy-2025.18.0-win32-x64\bundled\libs\debugpy\_vendored\pydevd\pydevd.py", line 2706, in _exec
+    globals = pydevd_runpy.run_path(file, globals, "__main__")
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\v_sur\.vscode\extensions\ms-python.debugpy-2025.18.0-win32-x64\bundled\libs\debugpy\_vendored\pydevd\_pydevd_bundle\pydevd_runpy.py", line 310, in run_path
+    return _run_module_code(code, init_globals, run_name, pkg_name=pkg_name, script_name=fname)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\v_sur\.vscode\extensions\ms-python.debugpy-2025.18.0-win32-x64\bundled\libs\debugpy\_vendored\pydevd\_pydevd_bundle\pydevd_runpy.py", line 127, in _run_module_code
+    _run_code(code, mod_globals, init_globals, mod_name, mod_spec, pkg_name, script_name)
+  File "c:\Users\v_sur\.vscode\extensions\ms-python.debugpy-2025.18.0-win32-x64\bundled\libs\debugpy\_vendored\pydevd\_pydevd_bundle\pydevd_runpy.py", line 118, in _run_code
+    exec(code, run_globals)
+  File "E:\ProjectTrading\generate_labeled_features.py", line 424, in <module>
+    main()
+  File "E:\ProjectTrading\generate_labeled_features.py", line 418, in main
+    write_labeled_features(engine, df_final, DRY_RUN)
+  File "E:\ProjectTrading\generate_labeled_features.py", line 360, in write_labeled_features
+    cursor.executemany(sql, batch)
+pyodbc.DataError: ('22003', '[22003] [Microsoft][ODBC Driver 18 for SQL Server]Numeric value out of range (0) (SQLParamData)')
+Exception during reset or similar
+Traceback (most recent call last):
+  File "c:\Users\v_sur\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\pool\base.py", line 985, in _finalize_fairy
+    fairy._reset(
+  File "c:\Users\v_sur\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\pool\base.py", line 1433, in _reset
+    pool._dialect.do_rollback(self)
+  File "c:\Users\v_sur\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\dialects\mssql\base.py", line 3168, in do_rollback
+    super().do_rollback(dbapi_connection)
+  File "c:\Users\v_sur\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\engine\default.py", line 712, in do_rollback
+    dbapi_connection.rollback()
+pyodbc.OperationalError: ('08S01', '[08S01] [Microsoft][ODBC Driver 18 for SQL Server]TCP Provider: An existing connection was forcibly closed by the remote host.\r\n (10054) (SQLEndTran); [08S01] [Microsoft][ODBC Driver 18 for SQL Server]Communication link failure (10054)')
+2026-01-07 20:27:33 [INFO] ERROR: Script failed with exit code 1

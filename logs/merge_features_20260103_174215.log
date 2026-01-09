@@ -1,0 +1,12 @@
+2026-01-03 17:42:15 [INFO] [MERGE_20260103_174215] ==== Merge Features Started (run_id=MERGE_20260103_174215) ====
+2026-01-03 17:42:15 [INFO] [MERGE_20260103_174215] Log file: logs\merge_features_20260103_174215.log
+2026-01-03 17:42:15 [INFO] [MERGE_20260103_174215] Dry-run mode: True
+2026-01-03 17:42:15 [INFO] [MERGE_20260103_174215] Creating SQLAlchemy engine...
+2026-01-03 17:42:16 [INFO] [MERGE_20260103_174215] Connected to Azure SQL successfully.
+2026-01-03 17:42:16 [INFO] [MERGE_20260103_174215] Loaded 25,740 raw price rows.
+2026-01-03 17:43:25 [INFO] [MERGE_20260103_174215] Loaded 10,576,323 indicator rows.
+2026-01-03 17:43:30 [INFO] [MERGE_20260103_174215] Pivoted indicators to wide format: 4 columns.
+2026-01-03 17:43:30 [INFO] [MERGE_20260103_174215] Merged dataset: 25,740 rows, 16 columns.
+2026-01-03 17:43:30 [INFO] [MERGE_20260103_174215] Dry-run mode: NOT writing to SQL.
+2026-01-03 17:43:30 [INFO] [MERGE_20260103_174215] Would write 25,740 rows to dbo.tblMergedFeatures.
+2026-01-03 17:43:30 [INFO] [MERGE_20260103_174215] ==== Merge Features Completed Successfully ====

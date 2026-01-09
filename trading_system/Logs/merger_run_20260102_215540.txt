@@ -1,0 +1,18 @@
+2026-01-02 21:55:40 [INFO] === MERGE STARTED: Staging → RawPrices ===
+2026-01-02 21:55:40 [INFO] DB Server: suresh-trading-sql.database.windows.net, Database: TradingDB
+2026-01-02 21:55:40 [INFO] Validating staging timestamps...
+2026-01-02 21:55:40 [INFO] Timestamp validation passed — no invalid rows.
+2026-01-02 21:55:40 [INFO] Fetching pending rows per symbol...
+2026-01-02 21:55:40 [INFO] Pending rows per symbol:
+2026-01-02 21:55:40 [INFO]   AAPL: 1170
+2026-01-02 21:55:40 [INFO]   BCE.TO: 1110
+2026-01-02 21:55:40 [INFO]   BMO.TO: 1110
+2026-01-02 21:55:40 [INFO]   BNS.TO: 1170
+2026-01-02 21:55:40 [INFO]   CP.TO: 1065
+2026-01-02 21:55:40 [INFO]   MSFT: 1170
+2026-01-02 21:55:40 [INFO]   NA.TO: 1086
+2026-01-02 21:55:40 [INFO]   TD.TO: 1170
+2026-01-02 21:55:40 [INFO] Beginning SQL transaction...
+2026-01-02 21:55:40 [INFO] Inserting new rows into tblRawPrices...
+2026-01-02 21:55:41 [INFO] MERGE FAILED — transaction rolled back.
+2026-01-02 21:55:41 [INFO] Error: ('23000', "[23000] [Microsoft][ODBC Driver 18 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_tblRawPrices'. Cannot insert duplicate key in object 'dbo.tblRawPrices'. The duplicate key value is (AAPL, 2026-01-02 09:30:00.0000000). (2627) (SQLExecDirectW); [23000] [Microsoft][ODBC Driver 18 for SQL Server][SQL Server]The statement has been terminated. (3621)")

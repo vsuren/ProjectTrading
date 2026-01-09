@@ -1,0 +1,10 @@
+2026-01-05 23:24:20 [INFO] === MASTER ORCHESTRATOR STARTED ===
+2026-01-05 23:24:20 [INFO] STEP 1: Ingestion -> Staging
+2026-01-05 23:24:20 [INFO] Running: ['C:\\trading_function\\.venv\\Scripts\\python.exe', 'E:\\ProjectTrading\\trading_system\\ingestion\\ingestion_1m_range_staging_day.py']
+2026-01-05 23:24:20 [INFO] ----- STDOUT -----
+2026-01-05 23:24:20 [INFO] ----- STDERR -----
+2026-01-05 23:24:20 [INFO] Traceback (most recent call last):
+  File "E:\ProjectTrading\trading_system\ingestion\ingestion_1m_range_staging_day.py", line 4, in <module>
+    import yfinance as yf
+ModuleNotFoundError: No module named 'yfinance'
+2026-01-05 23:24:20 [INFO] ERROR: Script failed with exit code 1

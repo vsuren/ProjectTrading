@@ -1,0 +1,31 @@
+2026-01-07 20:36:11 [INFO] === MASTER ORCHESTRATOR STARTED ===
+2026-01-07 20:36:11 [INFO] STEP 1 SKIPPED
+2026-01-07 20:36:11 [INFO] STEP 2 SKIPPED
+2026-01-07 20:36:11 [INFO] STEP 3 SKIPPED
+2026-01-07 20:36:11 [INFO] STEP 4 SKIPPED
+2026-01-07 20:36:11 [INFO] STEP 5: Generate Labels → tblLabeledFeatures
+2026-01-07 20:36:11 [INFO] Running: ['c:\\Users\\v_sur\\AppData\\Local\\Programs\\Python\\Python311\\python.exe', 'E:\\ProjectTrading\\generate_labeled_features.py']
+2026-01-07 20:36:13 [INFO] ----- STDOUT -----
+2026-01-07 20:36:13 [INFO] ----- STDERR -----
+2026-01-07 20:36:13 [INFO] Traceback (most recent call last):
+  File "c:\Users\v_sur\.vscode\extensions\ms-python.debugpy-2025.18.0-win32-x64\bundled\libs\debugpy\_vendored\pydevd\pydevd.py", line 3729, in <module>
+    main()
+  File "c:\Users\v_sur\.vscode\extensions\ms-python.debugpy-2025.18.0-win32-x64\bundled\libs\debugpy\_vendored\pydevd\pydevd.py", line 3714, in main
+    globals = debugger.run(setup["file"], None, None, is_module)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\v_sur\.vscode\extensions\ms-python.debugpy-2025.18.0-win32-x64\bundled\libs\debugpy\_vendored\pydevd\pydevd.py", line 2698, in run
+    return self._exec(is_module, entry_point_fn, module_name, file, globals, locals)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\v_sur\.vscode\extensions\ms-python.debugpy-2025.18.0-win32-x64\bundled\libs\debugpy\_vendored\pydevd\pydevd.py", line 2706, in _exec
+    globals = pydevd_runpy.run_path(file, globals, "__main__")
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\v_sur\.vscode\extensions\ms-python.debugpy-2025.18.0-win32-x64\bundled\libs\debugpy\_vendored\pydevd\_pydevd_bundle\pydevd_runpy.py", line 309, in run_path
+    code, fname = _get_code_from_file(run_name, path_name)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\v_sur\.vscode\extensions\ms-python.debugpy-2025.18.0-win32-x64\bundled\libs\debugpy\_vendored\pydevd\_pydevd_bundle\pydevd_runpy.py", line 283, in _get_code_from_file
+    code = compile(f.read(), fname, "exec")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\ProjectTrading\generate_labeled_features.py", line 379
+    cursor.close()
+IndentationError: unexpected indent
+2026-01-07 20:36:13 [INFO] ERROR: Script failed with exit code 1

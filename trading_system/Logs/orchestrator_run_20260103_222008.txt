@@ -1,0 +1,39 @@
+2026-01-03 22:20:08 [INFO] === MASTER ORCHESTRATOR STARTED ===
+2026-01-03 22:20:08 [INFO] STEP 1 SKIPPED
+2026-01-03 22:20:08 [INFO] STEP 2: Merge Staging → RawPrices
+2026-01-03 22:20:08 [INFO] Running: ['C:\\Users\\v_sur\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe', 'E:\\ProjectTrading\\trading_system\\ingestion\\merger.py']
+2026-01-03 22:20:09 [INFO] ----- STDOUT -----
+2026-01-03 22:20:09 [INFO] 2026-01-03 22:20:09 [INFO] === MERGE STARTED: Staging -> RawPrices ===
+2026-01-03 22:20:09 [INFO] DB Server: suresh-trading-sql.database.windows.net, Database: TradingDB
+2026-01-03 22:20:09 [INFO] Validating staging timestamps...
+2026-01-03 22:20:09 [INFO] Timestamp validation passed - no invalid rows.
+2026-01-03 22:20:09 [INFO] Fetching pending rows per symbol...
+2026-01-03 22:20:09 [INFO] No pending rows in staging. Nothing to merge.
+2026-01-03 22:20:09 [INFO] Completed: merger.py
+2026-01-03 22:20:09 [INFO] STEP 3 SKIPPED
+2026-01-03 22:20:09 [INFO] STEP 4: Merge Raw + Indicators → tblMergedFeatures
+2026-01-03 22:20:09 [INFO] Running: ['C:\\Users\\v_sur\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe', 'E:\\ProjectTrading\\merge_feature.py', '--dry-run']
+2026-01-03 22:20:11 [INFO] ----- STDOUT -----
+2026-01-03 22:20:11 [INFO] 2026-01-03 22:20:10 [INFO] ==== Merge Features Started (run_id=MERGE_20260103_222010) ====
+2026-01-03 22:20:10 [INFO] Dry-run mode: True
+2026-01-03 22:20:10 [INFO] Creating SQLAlchemy engine...
+2026-01-03 22:20:11 [INFO] Connected to Azure SQL successfully.
+2026-01-03 22:20:11 [INFO] Database connection completed in 0.58 seconds.
+2026-01-03 22:20:11 [INFO] Loaded 25,740 raw price rows.
+2026-01-03 22:20:11 [INFO] Load raw prices completed in 0.52 seconds.
+2026-01-03 22:20:11 [INFO] Loaded 0 indicator rows.
+2026-01-03 22:20:11 [INFO] Load indicators completed in 0.09 seconds.
+2026-01-03 22:20:11 [INFO] Indicator table empty — skipping pivot.
+2026-01-03 22:20:11 [INFO] Pivot indicators completed in 0.01 seconds.
+2026-01-03 22:20:11 [INFO] Failed during merge: 'Symbol'
+2026-01-03 22:20:11 [INFO] Fatal error in merge pipeline: 'Symbol'
+2026-01-03 22:20:11 [INFO] Merge did NOT complete successfully.
+2026-01-03 22:20:12 [INFO] Completed: merge_feature.py
+2026-01-03 22:20:12 [INFO] === RUN SUMMARY ===
+2026-01-03 22:20:12 [INFO] INGESTION:   SKIPPED
+2026-01-03 22:20:12 [INFO] MERGE:       RUN
+2026-01-03 22:20:12 [INFO] INDICATORS:  SKIPPED
+2026-01-03 22:20:12 [INFO] FEATURES:    RUN
+2026-01-03 22:20:12 [INFO] DRY_RUN:     True
+2026-01-03 22:20:12 [INFO] ====================
+2026-01-03 22:20:12 [INFO] === MASTER ORCHESTRATOR COMPLETED ===

@@ -1,0 +1,9 @@
+2026-01-05 14:19:33,823 [INFO] === Starting Signal Feature Generation ===
+2026-01-05 14:19:33,823 [INFO] REBUILD_MODE=False, DRY_RUN=True
+2026-01-05 14:19:33,823 [INFO] Loading NEW rows for incremental update...
+2026-01-05 14:20:53,269 [INFO] === Starting Signal Feature Generation ===
+2026-01-05 14:20:53,287 [INFO] REBUILD_MODE=False, DRY_RUN=True
+2026-01-05 14:20:53,288 [INFO] Loading NEW rows for incremental update...
+2026-01-05 14:23:19,766 [INFO] === Starting Signal Feature Generation ===
+2026-01-05 14:23:19,782 [INFO] REBUILD_MODE=False, DRY_RUN=True
+2026-01-05 14:23:19,782 [INFO] Loading NEW rows for incremental update...

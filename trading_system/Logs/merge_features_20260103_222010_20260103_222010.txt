@@ -1,0 +1,14 @@
+2026-01-03 22:20:10 [INFO] ==== Merge Features Started (run_id=MERGE_20260103_222010) ====
+2026-01-03 22:20:10 [INFO] Dry-run mode: True
+2026-01-03 22:20:10 [INFO] Creating SQLAlchemy engine...
+2026-01-03 22:20:11 [INFO] Connected to Azure SQL successfully.
+2026-01-03 22:20:11 [INFO] Database connection completed in 0.58 seconds.
+2026-01-03 22:20:11 [INFO] Loaded 25,740 raw price rows.
+2026-01-03 22:20:11 [INFO] Load raw prices completed in 0.52 seconds.
+2026-01-03 22:20:11 [INFO] Loaded 0 indicator rows.
+2026-01-03 22:20:11 [INFO] Load indicators completed in 0.09 seconds.
+2026-01-03 22:20:11 [INFO] Indicator table empty — skipping pivot.
+2026-01-03 22:20:11 [INFO] Pivot indicators completed in 0.01 seconds.
+2026-01-03 22:20:11 [INFO] Failed during merge: 'Symbol'
+2026-01-03 22:20:11 [INFO] Fatal error in merge pipeline: 'Symbol'
+2026-01-03 22:20:11 [INFO] Merge did NOT complete successfully.

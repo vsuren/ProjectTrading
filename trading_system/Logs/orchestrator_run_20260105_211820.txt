@@ -1,0 +1,65 @@
+2026-01-05 21:18:20 [INFO] === MASTER ORCHESTRATOR STARTED ===
+2026-01-05 21:18:20 [INFO] STEP 1: Ingestion -> Staging
+2026-01-05 21:18:20 [INFO] Running: ['C:\\Users\\v_sur\\AppData\\Local\\Programs\\Python\\Python311\\python.exe', 'E:\\ProjectTrading\\trading_system\\ingestion\\ingestion_1m_range_staging_day.py']
+2026-01-05 21:18:26 [INFO] ----- STDOUT -----
+2026-01-05 21:18:26 [INFO] 2026-01-05 21:18:22 [INFO] Symbols loaded:
+2026-01-05 21:18:22 [INFO]    Symbol  Days
+0   CP.TO     8
+1   TD.TO     8
+2    MSFT     8
+3    AAPL     8
+4  BMO.TO     8
+5  BNS.TO     8
+6   NA.TO     8
+7  BCE.TO     8
+2026-01-05 21:18:22 [INFO] === Starting ingestion ===
+2026-01-05 21:18:22 [INFO] === Processing CP.TO (Backfill=8 days) ===
+2026-01-05 21:18:22 [INFO] === CP.TO: Starting ingestion ===
+2026-01-05 21:18:22 [INFO] CP.TO: Incremental ingestion -> downloading 1 day of 1m data
+2026-01-05 21:18:23 [INFO] CP.TO: No new rows after filtering
+2026-01-05 21:18:23 [INFO] === Processing TD.TO (Backfill=8 days) ===
+2026-01-05 21:18:23 [INFO] === TD.TO: Starting ingestion ===
+2026-01-05 21:18:23 [INFO] TD.TO: Incremental ingestion -> downloading 1 day of 1m data
+2026-01-05 21:18:23 [INFO] TD.TO: No new rows after filtering
+2026-01-05 21:18:23 [INFO] === Processing MSFT (Backfill=8 days) ===
+2026-01-05 21:18:23 [INFO] === MSFT: Starting ingestion ===
+2026-01-05 21:18:23 [INFO] MSFT: Incremental ingestion -> downloading 1 day of 1m data
+2026-01-05 21:18:24 [INFO] MSFT: No new rows after filtering
+2026-01-05 21:18:24 [INFO] === Processing AAPL (Backfill=8 days) ===
+2026-01-05 21:18:24 [INFO] === AAPL: Starting ingestion ===
+2026-01-05 21:18:24 [INFO] AAPL: Incremental ingestion -> downloading 1 day of 1m data
+2026-01-05 21:18:24 [INFO] AAPL: No new rows after filtering
+2026-01-05 21:18:24 [INFO] === Processing BMO.TO (Backfill=8 days) ===
+2026-01-05 21:18:24 [INFO] === BMO.TO: Starting ingestion ===
+2026-01-05 21:18:24 [INFO] BMO.TO: Incremental ingestion -> downloading 1 day of 1m data
+2026-01-05 21:18:24 [INFO] BMO.TO: No new rows after filtering
+2026-01-05 21:18:24 [INFO] === Processing BNS.TO (Backfill=8 days) ===
+2026-01-05 21:18:24 [INFO] === BNS.TO: Starting ingestion ===
+2026-01-05 21:18:24 [INFO] BNS.TO: Incremental ingestion -> downloading 1 day of 1m data
+2026-01-05 21:18:25 [INFO] BNS.TO: No new rows after filtering
+2026-01-05 21:18:25 [INFO] === Processing NA.TO (Backfill=8 days) ===
+2026-01-05 21:18:25 [INFO] === NA.TO: Starting ingestion ===
+2026-01-05 21:18:25 [INFO] NA.TO: Incremental ingestion -> downloading 1 day of 1m data
+2026-01-05 21:18:25 [INFO] NA.TO: No new rows after filtering
+2026-01-05 21:18:25 [INFO] === Processing BCE.TO (Backfill=8 days) ===
+2026-01-05 21:18:25 [INFO] === BCE.TO: Starting ingestion ===
+2026-01-05 21:18:25 [INFO] BCE.TO: Incremental ingestion -> downloading 1 day of 1m data
+2026-01-05 21:18:26 [INFO] BCE.TO: No new rows after filtering
+2026-01-05 21:18:26 [INFO] === INGESTION SUMMARY ===
+2026-01-05 21:18:26 [INFO] Total symbols processed: 8
+2026-01-05 21:18:26 [INFO] Total days processed:    0
+2026-01-05 21:18:26 [INFO] Total rows inserted:     0
+2026-01-05 21:18:26 [INFO] === INGESTION COMPLETED in 3.42 seconds ===
+2026-01-05 21:18:26 [INFO] Completed: ingestion_1m_range_staging_day.py
+2026-01-05 21:18:26 [INFO] STEP 2: Merge Staging -> RawPrices
+2026-01-05 21:18:26 [INFO] Running: ['C:\\Users\\v_sur\\AppData\\Local\\Programs\\Python\\Python311\\python.exe', 'E:\\ProjectTrading\\trading_system\\ingestion\\merger.py']
+2026-01-05 21:18:26 [INFO] ----- STDOUT -----
+2026-01-05 21:18:26 [INFO] 2026-01-05 21:18:26 [INFO] === MERGE STARTED: Staging -> RawPrices ===
+2026-01-05 21:18:26 [INFO] DB Server: suresh-trading-sql.database.windows.net, Database: TradingDB
+2026-01-05 21:18:26 [INFO] Validating staging timestamps...
+2026-01-05 21:18:26 [INFO] Timestamp validation passed - no invalid rows.
+2026-01-05 21:18:26 [INFO] Fetching pending rows per symbol...
+2026-01-05 21:18:26 [INFO] No pending rows in staging. Nothing to merge.
+2026-01-05 21:18:26 [INFO] Completed: merger.py
+2026-01-05 21:18:26 [INFO] STEP 3: Indicator Computation
+2026-01-05 21:18:26 [INFO] Running: ['C:\\Users\\v_sur\\AppData\\Local\\Programs\\Python\\Python311\\python.exe', 'E:\\ProjectTrading\\run_master_upgraded.py']

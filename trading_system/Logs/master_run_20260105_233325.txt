@@ -1,0 +1,64 @@
+2026-01-05 23:33:25 [INFO] === MASTER RUN STARTED ===
+2026-01-05 23:33:25 [INFO] DRY_RUN mode: False
+2026-01-05 23:33:25 [INFO] Loaded 19 active indicators.
+2026-01-05 23:33:25 [INFO] Loaded 28828 price rows.
+2026-01-05 23:33:25 [INFO] Starting indicator ADX (IndicatorId=43, param=14)
+2026-01-05 23:33:25 [INFO] Starting indicator SUPERTREND (IndicatorId=55, param=10)
+2026-01-05 23:33:25 [INFO] Starting indicator BBANDS_MIDDLE (IndicatorId=45, param=20)
+2026-01-05 23:33:25 [INFO] Starting indicator RSI (IndicatorId=52, param=14)
+2026-01-05 23:33:25 [INFO] SUPERTREND: computing for symbol=AAPL, period=10
+2026-01-05 23:33:26 [INFO] SUPERTREND: computing for symbol=BCE.TO, period=10
+2026-01-05 23:33:26 [INFO] Completed indicator EMA with 28828 rows in 0.90 seconds.
+2026-01-05 23:33:26 [INFO] Starting indicator SMA (IndicatorId=68, param=200)
+2026-01-05 23:33:27 [INFO] Completed indicator SMA with 28676 rows in 1.56 seconds.
+2026-01-05 23:33:27 [INFO] Starting indicator EMA (IndicatorId=70, param=50)
+2026-01-05 23:33:27 [INFO] Completed indicator BBANDS_MIDDLE with 28676 rows in 1.66 seconds.
+2026-01-05 23:33:27 [INFO] SUPERTREND: computing for symbol=BMO.TO, period=10
+2026-01-05 23:33:27 [INFO] Starting indicator EMA (IndicatorId=71, param=200)
+2026-01-05 23:33:27 [INFO] Completed indicator CCI with 28524 rows in 1.69 seconds.
+2026-01-05 23:33:27 [INFO] Completed indicator RSI with 28701 rows in 1.69 seconds.
+2026-01-05 23:33:27 [INFO] Starting indicator EMA (IndicatorId=75, param=9)
+2026-01-05 23:33:27 [INFO] Starting indicator BBANDS_UPPER (IndicatorId=76, param=20)
+2026-01-05 23:33:27 [INFO] Completed indicator ATR with 28828 rows in 1.85 seconds.
+2026-01-05 23:33:27 [INFO] Starting indicator BBANDS_LOWER (IndicatorId=77, param=20)
+2026-01-05 23:33:28 [INFO] SUPERTREND: computing for symbol=BNS.TO, period=10
+2026-01-05 23:33:28 [INFO] Completed indicator EMA with 28828 rows in 0.94 seconds.
+2026-01-05 23:33:28 [INFO] Starting indicator STOCH_K (IndicatorId=78, param=14)
+2026-01-05 23:33:28 [INFO] Completed indicator SMA with 27236 rows in 1.73 seconds.
+2026-01-05 23:33:28 [INFO] Starting indicator STOCH_D (IndicatorId=79, param=14)
+2026-01-05 23:33:29 [INFO] Completed indicator EMA with 28828 rows in 1.54 seconds.
+2026-01-05 23:33:29 [INFO] Completed indicator EMA with 28828 rows in 1.48 seconds.
+2026-01-05 23:33:29 [INFO] Starting indicator BOLL_WIDTH (IndicatorId=80, param=20)
+2026-01-05 23:33:29 [INFO] SUPERTREND: computing for symbol=CP.TO, period=10
+2026-01-05 23:33:29 [INFO] Starting indicator BOLL_PCTB (IndicatorId=81, param=20)
+2026-01-05 23:33:29 [INFO] Completed indicator ADX with 28620 rows in 3.34 seconds.
+2026-01-05 23:33:29 [INFO] Starting indicator WILLIAMS_R (IndicatorId=82, param=14)
+2026-01-05 23:33:30 [INFO] Completed indicator BBANDS_UPPER with 28676 rows in 2.26 seconds.
+2026-01-05 23:33:30 [INFO] SUPERTREND: computing for symbol=MSFT, period=10
+2026-01-05 23:33:30 [INFO] Completed indicator BBANDS_LOWER with 28676 rows in 2.15 seconds.
+2026-01-05 23:33:30 [INFO] SUPERTREND: computing for symbol=NA.TO, period=10
+2026-01-05 23:33:30 [INFO] Completed indicator STOCH_K with 28724 rows in 2.38 seconds.
+2026-01-05 23:33:30 [INFO] Completed indicator STOCH_D with 28708 rows in 2.24 seconds.
+2026-01-05 23:33:30 [INFO] Completed indicator WILLIAMS_R with 28724 rows in 1.62 seconds.
+2026-01-05 23:33:31 [INFO] Completed indicator BOLL_PCTB with 28676 rows in 2.21 seconds.
+2026-01-05 23:33:31 [INFO] Completed indicator BOLL_WIDTH with 28676 rows in 2.30 seconds.
+2026-01-05 23:33:31 [INFO] SUPERTREND: computing for symbol=TD.TO, period=10
+2026-01-05 23:33:32 [INFO] Completed indicator SUPERTREND with 28828 rows in 6.40 seconds.
+2026-01-05 23:33:32 [INFO] Total computed indicator rows: 544261
+2026-01-05 23:33:32 [INFO] Preparing to insert 544261 rows into tblIndicators. DRY_RUN=False
+2026-01-05 23:33:35 [INFO] Preparing to insert 544261 rows into tblIndicators.
+2026-01-05 23:33:35 [INFO] Inserting batch 1 (50000 rows)...
+2026-01-05 23:33:42 [INFO] Inserting batch 2 (50000 rows)...
+2026-01-05 23:33:50 [INFO] Inserting batch 3 (50000 rows)...
+2026-01-05 23:33:57 [INFO] Inserting batch 4 (50000 rows)...
+2026-01-05 23:34:03 [INFO] Inserting batch 5 (50000 rows)...
+2026-01-05 23:34:10 [INFO] Inserting batch 6 (50000 rows)...
+2026-01-05 23:34:17 [INFO] Inserting batch 7 (50000 rows)...
+2026-01-05 23:34:25 [INFO] Inserting batch 8 (50000 rows)...
+2026-01-05 23:34:32 [INFO] Inserting batch 9 (50000 rows)...
+2026-01-05 23:34:40 [INFO] Inserting batch 10 (50000 rows)...
+2026-01-05 23:34:47 [INFO] Inserting batch 11 (44261 rows)...
+2026-01-05 23:34:54 [INFO] All batches inserted successfully.
+2026-01-05 23:34:54 [INFO] Database connection closed.
+2026-01-05 23:34:54 [INFO] Insert step completed in 81.74 seconds.
+2026-01-05 23:34:54 [INFO] === MASTER RUN COMPLETED in 89.20 seconds ===

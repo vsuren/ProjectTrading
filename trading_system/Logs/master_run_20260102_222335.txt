@@ -1,0 +1,55 @@
+2026-01-02 22:23:36 [INFO] === MASTER RUN STARTED ===
+2026-01-02 22:23:36 [INFO] DRY_RUN mode: True
+2026-01-02 22:23:37 [INFO] Loaded 19 active indicators.
+2026-01-02 22:23:38 [INFO] Loaded 25740 price rows.
+2026-01-02 22:23:38 [INFO] Starting indicator ADX (IndicatorId=43, param=14)
+2026-01-02 22:23:38 [INFO] Starting indicator ATR (IndicatorId=44, param=14)
+2026-01-02 22:23:38 [INFO] Starting indicator BBANDS_UPPER (IndicatorId=76, param=20)
+2026-01-02 22:23:38 [INFO] Starting indicator BBANDS_MIDDLE (IndicatorId=45, param=20)
+2026-01-02 22:23:38 [INFO] Starting indicator BOLL_WIDTH (IndicatorId=80, param=20)
+2026-01-02 22:23:38 [INFO] Starting indicator BBANDS_LOWER (IndicatorId=77, param=20)
+2026-01-02 22:23:38 [INFO] Starting indicator CCI (IndicatorId=47, param=20)
+2026-01-02 22:23:38 [INFO] Completed indicator BOLL_WIDTH with 25588 rows in 0.43 seconds.
+2026-01-02 22:23:38 [INFO] Starting indicator EMA (IndicatorId=48, param=20)
+2026-01-02 22:23:38 [INFO] Completed indicator BBANDS_MIDDLE with 25588 rows in 0.49 seconds.
+2026-01-02 22:23:38 [INFO] Completed indicator BBANDS_UPPER with 25588 rows in 0.48 seconds.
+2026-01-02 22:23:38 [INFO] Starting indicator EMA (IndicatorId=71, param=200)
+2026-01-02 22:23:38 [INFO] Starting indicator EMA (IndicatorId=70, param=50)
+2026-01-02 22:23:38 [INFO] Completed indicator CCI with 25436 rows in 0.54 seconds.
+2026-01-02 22:23:38 [INFO] Completed indicator BOLL_PCTB with 25588 rows in 0.54 seconds.
+2026-01-02 22:23:38 [INFO] Completed indicator BBANDS_LOWER with 25588 rows in 0.53 seconds.
+2026-01-02 22:23:38 [INFO] Completed indicator ATR with 25740 rows in 0.56 seconds.
+2026-01-02 22:23:38 [INFO] Starting indicator RSI (IndicatorId=52, param=14)
+2026-01-02 22:23:38 [INFO] Starting indicator EMA (IndicatorId=75, param=9)
+2026-01-02 22:23:38 [INFO] Starting indicator SMA (IndicatorId=53, param=20)
+2026-01-02 22:23:38 [INFO] Starting indicator SMA (IndicatorId=68, param=200)
+2026-01-02 22:23:39 [INFO] Completed indicator EMA with 25740 rows in 0.33 seconds.
+2026-01-02 22:23:39 [INFO] Starting indicator STOCH_D (IndicatorId=79, param=14)
+2026-01-02 22:23:39 [INFO] Completed indicator ADX with 25532 rows in 0.80 seconds.
+2026-01-02 22:23:39 [INFO] Starting indicator STOCH_K (IndicatorId=78, param=14)
+2026-01-02 22:23:39 [INFO] Completed indicator EMA with 25740 rows in 0.35 seconds.
+2026-01-02 22:23:39 [INFO] Starting indicator SUPERTREND (IndicatorId=55, param=10)
+2026-01-02 22:23:39 [INFO] Completed indicator EMA with 25740 rows in 0.37 seconds.
+2026-01-02 22:23:39 [INFO] Completed indicator EMA with 25740 rows in 0.35 seconds.
+2026-01-02 22:23:39 [INFO] Starting indicator WILLIAMS_R (IndicatorId=82, param=14)
+2026-01-02 22:23:39 [INFO] SUPERTREND: computing for symbol=AAPL, period=10
+2026-01-02 22:23:39 [INFO] Completed indicator SMA with 25588 rows in 0.45 seconds.
+2026-01-02 22:23:39 [INFO] Completed indicator SMA with 24148 rows in 0.44 seconds.
+2026-01-02 22:23:39 [INFO] Completed indicator RSI with 25613 rows in 0.48 seconds.
+2026-01-02 22:23:40 [INFO] SUPERTREND: computing for symbol=BCE.TO, period=10
+2026-01-02 22:23:40 [INFO] Completed indicator STOCH_D with 25620 rows in 1.33 seconds.
+2026-01-02 22:23:40 [INFO] Completed indicator WILLIAMS_R with 25636 rows in 1.24 seconds.
+2026-01-02 22:23:40 [INFO] Completed indicator STOCH_K with 25636 rows in 1.34 seconds.
+2026-01-02 22:23:41 [INFO] SUPERTREND: computing for symbol=BMO.TO, period=10
+2026-01-02 22:23:42 [INFO] SUPERTREND: computing for symbol=BNS.TO, period=10
+2026-01-02 22:23:43 [INFO] SUPERTREND: computing for symbol=CP.TO, period=10
+2026-01-02 22:23:44 [INFO] SUPERTREND: computing for symbol=MSFT, period=10
+2026-01-02 22:23:45 [INFO] SUPERTREND: computing for symbol=NA.TO, period=10
+2026-01-02 22:23:46 [INFO] SUPERTREND: computing for symbol=TD.TO, period=10
+2026-01-02 22:23:47 [INFO] Completed indicator SUPERTREND with 25740 rows in 8.15 seconds.
+2026-01-02 22:23:47 [INFO] Total computed indicator rows: 485589
+2026-01-02 22:23:47 [INFO] Preparing to insert 485589 rows into tblIndicators. DRY_RUN=True
+2026-01-02 22:23:47 [INFO] Preparing to insert 485589 rows into tblIndicators. DRY_RUN=True
+2026-01-02 22:23:47 [INFO] DRY_RUN active — no rows inserted.
+2026-01-02 22:23:47 [INFO] Insert step completed in 0.03 seconds.
+2026-01-02 22:23:47 [INFO] === MASTER RUN COMPLETED in 11.38 seconds ===

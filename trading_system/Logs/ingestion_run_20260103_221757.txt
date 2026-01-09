@@ -1,0 +1,48 @@
+2026-01-03 22:17:58 [INFO] Symbols loaded:
+2026-01-03 22:17:58 [INFO]    Symbol  Days
+0   CP.TO     8
+1   TD.TO     8
+2    MSFT     8
+3    AAPL     8
+4  BMO.TO     8
+5  BNS.TO     8
+6   NA.TO     8
+7  BCE.TO     8
+2026-01-03 22:17:58 [INFO] === Starting ingestion ===
+2026-01-03 22:17:58 [INFO] === Processing CP.TO (Backfill=8 days) ===
+2026-01-03 22:17:58 [INFO] === CP.TO: Starting ingestion ===
+2026-01-03 22:17:58 [INFO] CP.TO: Incremental ingestion → downloading 1 day of 1m data
+2026-01-03 22:18:02 [INFO] CP.TO: No new rows after filtering
+2026-01-03 22:18:02 [INFO] === Processing TD.TO (Backfill=8 days) ===
+2026-01-03 22:18:02 [INFO] === TD.TO: Starting ingestion ===
+2026-01-03 22:18:02 [INFO] TD.TO: Incremental ingestion → downloading 1 day of 1m data
+2026-01-03 22:18:02 [INFO] TD.TO: No new rows after filtering
+2026-01-03 22:18:02 [INFO] === Processing MSFT (Backfill=8 days) ===
+2026-01-03 22:18:02 [INFO] === MSFT: Starting ingestion ===
+2026-01-03 22:18:02 [INFO] MSFT: Incremental ingestion → downloading 1 day of 1m data
+2026-01-03 22:18:03 [INFO] MSFT: No new rows after filtering
+2026-01-03 22:18:03 [INFO] === Processing AAPL (Backfill=8 days) ===
+2026-01-03 22:18:03 [INFO] === AAPL: Starting ingestion ===
+2026-01-03 22:18:03 [INFO] AAPL: Incremental ingestion → downloading 1 day of 1m data
+2026-01-03 22:18:03 [INFO] AAPL: No new rows after filtering
+2026-01-03 22:18:03 [INFO] === Processing BMO.TO (Backfill=8 days) ===
+2026-01-03 22:18:03 [INFO] === BMO.TO: Starting ingestion ===
+2026-01-03 22:18:03 [INFO] BMO.TO: Incremental ingestion → downloading 1 day of 1m data
+2026-01-03 22:18:03 [INFO] BMO.TO: No new rows after filtering
+2026-01-03 22:18:03 [INFO] === Processing BNS.TO (Backfill=8 days) ===
+2026-01-03 22:18:03 [INFO] === BNS.TO: Starting ingestion ===
+2026-01-03 22:18:03 [INFO] BNS.TO: Incremental ingestion → downloading 1 day of 1m data
+2026-01-03 22:18:04 [INFO] BNS.TO: No new rows after filtering
+2026-01-03 22:18:04 [INFO] === Processing NA.TO (Backfill=8 days) ===
+2026-01-03 22:18:04 [INFO] === NA.TO: Starting ingestion ===
+2026-01-03 22:18:04 [INFO] NA.TO: Incremental ingestion → downloading 1 day of 1m data
+2026-01-03 22:18:04 [INFO] NA.TO: No new rows after filtering
+2026-01-03 22:18:04 [INFO] === Processing BCE.TO (Backfill=8 days) ===
+2026-01-03 22:18:04 [INFO] === BCE.TO: Starting ingestion ===
+2026-01-03 22:18:04 [INFO] BCE.TO: Incremental ingestion → downloading 1 day of 1m data
+2026-01-03 22:18:04 [INFO] BCE.TO: No new rows after filtering
+2026-01-03 22:18:04 [INFO] === INGESTION SUMMARY ===
+2026-01-03 22:18:04 [INFO] Total symbols processed: 8
+2026-01-03 22:18:04 [INFO] Total days processed:    0
+2026-01-03 22:18:04 [INFO] Total rows inserted:     0
+2026-01-03 22:18:04 [INFO] === INGESTION COMPLETED in 6.26 seconds ===

@@ -1,0 +1,144 @@
+2026-01-05 23:31:33 [INFO] === MASTER ORCHESTRATOR STARTED ===
+2026-01-05 23:31:33 [INFO] STEP 1: Ingestion -> Staging
+2026-01-05 23:31:33 [INFO] Running: ['C:\\trading_function\\.venv\\Scripts\\python.exe', 'E:\\ProjectTrading\\trading_system\\ingestion\\ingestion_1m_range_staging_day.py']
+2026-01-05 23:31:39 [INFO] ----- STDOUT -----
+2026-01-05 23:31:39 [INFO] 2026-01-05 23:31:35 [INFO] Symbols loaded:
+2026-01-05 23:31:35 [INFO]    Symbol  Days
+0   CP.TO     8
+1   TD.TO     8
+2    MSFT     8
+3    AAPL     8
+4  BMO.TO     8
+5  BNS.TO     8
+6   NA.TO     8
+7  BCE.TO     8
+2026-01-05 23:31:35 [INFO] === Starting ingestion ===
+2026-01-05 23:31:35 [INFO] === Processing CP.TO (Backfill=8 days) ===
+2026-01-05 23:31:35 [INFO] === CP.TO: Starting ingestion ===
+2026-01-05 23:31:35 [INFO] CP.TO: Incremental ingestion -> downloading 1 day of 1m data
+2026-01-05 23:31:36 [INFO] CP.TO: No new rows after filtering
+2026-01-05 23:31:36 [INFO] === Processing TD.TO (Backfill=8 days) ===
+2026-01-05 23:31:36 [INFO] === TD.TO: Starting ingestion ===
+2026-01-05 23:31:36 [INFO] TD.TO: Incremental ingestion -> downloading 1 day of 1m data
+2026-01-05 23:31:36 [INFO] TD.TO: No new rows after filtering
+2026-01-05 23:31:36 [INFO] === Processing MSFT (Backfill=8 days) ===
+2026-01-05 23:31:36 [INFO] === MSFT: Starting ingestion ===
+2026-01-05 23:31:36 [INFO] MSFT: Incremental ingestion -> downloading 1 day of 1m data
+2026-01-05 23:31:37 [INFO] MSFT: No new rows after filtering
+2026-01-05 23:31:37 [INFO] === Processing AAPL (Backfill=8 days) ===
+2026-01-05 23:31:37 [INFO] === AAPL: Starting ingestion ===
+2026-01-05 23:31:37 [INFO] AAPL: Incremental ingestion -> downloading 1 day of 1m data
+2026-01-05 23:31:37 [INFO] AAPL: No new rows after filtering
+2026-01-05 23:31:37 [INFO] === Processing BMO.TO (Backfill=8 days) ===
+2026-01-05 23:31:37 [INFO] === BMO.TO: Starting ingestion ===
+2026-01-05 23:31:37 [INFO] BMO.TO: Incremental ingestion -> downloading 1 day of 1m data
+2026-01-05 23:31:37 [INFO] BMO.TO: No new rows after filtering
+2026-01-05 23:31:37 [INFO] === Processing BNS.TO (Backfill=8 days) ===
+2026-01-05 23:31:37 [INFO] === BNS.TO: Starting ingestion ===
+2026-01-05 23:31:37 [INFO] BNS.TO: Incremental ingestion -> downloading 1 day of 1m data
+2026-01-05 23:31:38 [INFO] BNS.TO: No new rows after filtering
+2026-01-05 23:31:38 [INFO] === Processing NA.TO (Backfill=8 days) ===
+2026-01-05 23:31:38 [INFO] === NA.TO: Starting ingestion ===
+2026-01-05 23:31:38 [INFO] NA.TO: Incremental ingestion -> downloading 1 day of 1m data
+2026-01-05 23:31:38 [INFO] NA.TO: No new rows after filtering
+2026-01-05 23:31:38 [INFO] === Processing BCE.TO (Backfill=8 days) ===
+2026-01-05 23:31:38 [INFO] === BCE.TO: Starting ingestion ===
+2026-01-05 23:31:38 [INFO] BCE.TO: Incremental ingestion -> downloading 1 day of 1m data
+2026-01-05 23:31:39 [INFO] BCE.TO: No new rows after filtering
+2026-01-05 23:31:39 [INFO] === INGESTION SUMMARY ===
+2026-01-05 23:31:39 [INFO] Total symbols processed: 8
+2026-01-05 23:31:39 [INFO] Total days processed:    0
+2026-01-05 23:31:39 [INFO] Total rows inserted:     0
+2026-01-05 23:31:39 [INFO] === INGESTION COMPLETED in 3.63 seconds ===
+2026-01-05 23:31:39 [INFO] Completed: ingestion_1m_range_staging_day.py
+2026-01-05 23:31:39 [INFO] STEP 2: Merge Staging -> RawPrices
+2026-01-05 23:31:39 [INFO] Running: ['C:\\trading_function\\.venv\\Scripts\\python.exe', 'E:\\ProjectTrading\\trading_system\\ingestion\\merger.py']
+2026-01-05 23:31:40 [INFO] ----- STDOUT -----
+2026-01-05 23:31:40 [INFO] 2026-01-05 23:31:39 [INFO] === MERGE STARTED: Staging -> RawPrices ===
+2026-01-05 23:31:39 [INFO] DB Server: suresh-trading-sql.database.windows.net, Database: TradingDB
+2026-01-05 23:31:39 [INFO] Validating staging timestamps...
+2026-01-05 23:31:39 [INFO] Timestamp validation passed - no invalid rows.
+2026-01-05 23:31:39 [INFO] Fetching pending rows per symbol...
+2026-01-05 23:31:39 [INFO] No pending rows in staging. Nothing to merge.
+2026-01-05 23:31:40 [INFO] Completed: merger.py
+2026-01-05 23:31:40 [INFO] STEP 3: Indicator Computation
+2026-01-05 23:31:40 [INFO] Running: ['C:\\trading_function\\.venv\\Scripts\\python.exe', 'E:\\ProjectTrading\\run_master_upgraded.py']
+2026-01-05 23:33:17 [INFO] ----- STDOUT -----
+2026-01-05 23:33:17 [INFO] 2026-01-05 23:31:40 [INFO] === MASTER RUN STARTED ===
+2026-01-05 23:31:40 [INFO] DRY_RUN mode: False
+2026-01-05 23:31:41 [INFO] Loaded 19 active indicators.
+2026-01-05 23:31:41 [INFO] Loaded 28828 price rows.
+2026-01-05 23:31:41 [INFO] Starting indicator ADX (IndicatorId=43, param=14)
+2026-01-05 23:31:41 [INFO] Starting indicator ATR (IndicatorId=44, param=14)
+2026-01-05 23:31:41 [INFO] Starting indicator BBANDS_MIDDLE (IndicatorId=45, param=20)
+2026-01-05 23:31:41 [INFO] Starting indicator CCI (IndicatorId=47, param=20)
+2026-01-05 23:31:41 [INFO] Starting indicator EMA (IndicatorId=48, param=20)
+2026-01-05 23:31:41 [INFO] Starting indicator RSI (IndicatorId=52, param=14)
+2026-01-05 23:31:41 [INFO] Starting indicator SMA (IndicatorId=53, param=20)
+2026-01-05 23:31:41 [INFO] Starting indicator SUPERTREND (IndicatorId=55, param=10)
+2026-01-05 23:31:41 [INFO] SUPERTREND: computing for symbol=AAPL, period=10
+2026-01-05 23:31:42 [INFO] SUPERTREND: computing for symbol=BCE.TO, period=10
+2026-01-05 23:31:42 [INFO] Completed indicator EMA with 28828 rows in 1.07 seconds.
+2026-01-05 23:31:42 [INFO] Starting indicator SMA (IndicatorId=68, param=200)
+2026-01-05 23:31:42 [INFO] Completed indicator CCI with 28524 rows in 1.09 seconds.
+2026-01-05 23:31:42 [INFO] Starting indicator EMA (IndicatorId=70, param=50)
+2026-01-05 23:31:42 [INFO] Completed indicator SMA with 28676 rows in 1.22 seconds.
+2026-01-05 23:31:43 [INFO] Starting indicator EMA (IndicatorId=71, param=200)
+2026-01-05 23:31:43 [INFO] Completed indicator BBANDS_MIDDLE with 28676 rows in 2.02 seconds.
+2026-01-05 23:31:43 [INFO] Completed indicator ATR with 28828 rows in 2.04 seconds.
+2026-01-05 23:31:43 [INFO] SUPERTREND: computing for symbol=BMO.TO, period=10
+2026-01-05 23:31:43 [INFO] Starting indicator EMA (IndicatorId=75, param=9)
+2026-01-05 23:31:43 [INFO] Starting indicator BBANDS_UPPER (IndicatorId=76, param=20)
+2026-01-05 23:31:43 [INFO] Completed indicator RSI with 28701 rows in 2.08 seconds.
+2026-01-05 23:31:43 [INFO] Starting indicator BBANDS_LOWER (IndicatorId=77, param=20)
+2026-01-05 23:31:44 [INFO] Completed indicator EMA with 28828 rows in 1.39 seconds.
+2026-01-05 23:31:44 [INFO] Starting indicator STOCH_K (IndicatorId=78, param=14)
+2026-01-05 23:31:44 [INFO] SUPERTREND: computing for symbol=BNS.TO, period=10
+2026-01-05 23:31:44 [INFO] Completed indicator EMA with 28828 rows in 1.68 seconds.
+2026-01-05 23:31:44 [INFO] Completed indicator SMA with 27236 rows in 1.94 seconds.
+2026-01-05 23:31:44 [INFO] Completed indicator ADX with 28620 rows in 3.03 seconds.
+2026-01-05 23:31:44 [INFO] Starting indicator STOCH_D (IndicatorId=79, param=14)
+2026-01-05 23:31:44 [INFO] Starting indicator BOLL_WIDTH (IndicatorId=80, param=20)
+2026-01-05 23:31:44 [INFO] Starting indicator BOLL_PCTB (IndicatorId=81, param=20)
+2026-01-05 23:31:45 [INFO] Completed indicator EMA with 28828 rows in 1.56 seconds.
+2026-01-05 23:31:45 [INFO] Starting indicator WILLIAMS_R (IndicatorId=82, param=14)
+2026-01-05 23:31:45 [INFO] SUPERTREND: computing for symbol=CP.TO, period=10
+2026-01-05 23:31:46 [INFO] SUPERTREND: computing for symbol=MSFT, period=10
+2026-01-05 23:31:46 [INFO] Completed indicator BBANDS_LOWER with 28676 rows in 2.57 seconds.
+2026-01-05 23:31:46 [INFO] Completed indicator BBANDS_UPPER with 28676 rows in 2.66 seconds.
+2026-01-05 23:31:46 [INFO] Completed indicator STOCH_K with 28724 rows in 2.11 seconds.
+2026-01-05 23:31:46 [INFO] Completed indicator BOLL_PCTB with 28676 rows in 1.73 seconds.
+2026-01-05 23:31:46 [INFO] Completed indicator STOCH_D with 28708 rows in 1.78 seconds.
+2026-01-05 23:31:46 [INFO] Completed indicator WILLIAMS_R with 28724 rows in 1.23 seconds.
+2026-01-05 23:31:47 [INFO] Completed indicator BOLL_WIDTH with 28676 rows in 2.35 seconds.
+2026-01-05 23:31:47 [INFO] SUPERTREND: computing for symbol=NA.TO, period=10
+2026-01-05 23:31:48 [INFO] SUPERTREND: computing for symbol=TD.TO, period=10
+2026-01-05 23:31:49 [INFO] Completed indicator SUPERTREND with 28828 rows in 7.25 seconds.
+2026-01-05 23:31:49 [INFO] Total computed indicator rows: 544261
+2026-01-05 23:31:49 [INFO] Preparing to insert 544261 rows into tblIndicators. DRY_RUN=False
+2026-01-05 23:31:52 [INFO] Preparing to insert 544261 rows into tblIndicators.
+2026-01-05 23:31:52 [INFO] Inserting batch 1 (50000 rows)...
+2026-01-05 23:31:59 [INFO] Inserting batch 2 (50000 rows)...
+2026-01-05 23:32:06 [INFO] Inserting batch 3 (50000 rows)...
+2026-01-05 23:32:14 [INFO] Inserting batch 4 (50000 rows)...
+2026-01-05 23:32:21 [INFO] Inserting batch 5 (50000 rows)...
+2026-01-05 23:32:31 [INFO] Inserting batch 6 (50000 rows)...
+2026-01-05 23:32:38 [INFO] Inserting batch 7 (50000 rows)...
+2026-01-05 23:32:45 [INFO] Inserting batch 8 (50000 rows)...
+2026-01-05 23:32:54 [INFO] Inserting batch 9 (50000 rows)...
+2026-01-05 23:33:03 [INFO] Inserting batch 10 (50000 rows)...
+2026-01-05 23:33:10 [INFO] Inserting batch 11 (44261 rows)...
+2026-01-05 23:33:16 [INFO] All batches inserted successfully.
+2026-01-05 23:33:17 [INFO] Database connection closed.
+2026-01-05 23:33:17 [INFO] Insert step completed in 87.73 seconds.
+2026-01-05 23:33:17 [INFO] === MASTER RUN COMPLETED in 96.20 seconds ===
+2026-01-05 23:33:17 [INFO] Completed: run_master_upgraded.py
+2026-01-05 23:33:17 [INFO] STEP 4: Merge Raw + Indicators -> tblMergedFeatures
+2026-01-05 23:33:17 [INFO] Running: ['C:\\trading_function\\.venv\\Scripts\\python.exe', 'E:\\ProjectTrading\\merge_feature.py']
+2026-01-05 23:33:18 [INFO] ----- STDOUT -----
+2026-01-05 23:33:18 [INFO] ----- STDERR -----
+2026-01-05 23:33:18 [INFO] Traceback (most recent call last):
+  File "E:\ProjectTrading\merge_feature.py", line 10, in <module>
+    import sqlalchemy as sa
+ModuleNotFoundError: No module named 'sqlalchemy'
+2026-01-05 23:33:18 [INFO] ERROR: Script failed with exit code 1

@@ -1,0 +1,34 @@
+2026-01-03 23:36:56 [INFO] === MASTER ORCHESTRATOR STARTED ===
+2026-01-03 23:36:56 [INFO] STEP 1 SKIPPED
+2026-01-03 23:36:56 [INFO] STEP 2 SKIPPED
+2026-01-03 23:36:56 [INFO] STEP 3 SKIPPED
+2026-01-03 23:36:56 [INFO] STEP 4: Merge Raw + Indicators → tblMergedFeatures
+2026-01-03 23:36:56 [INFO] Running: ['c:\\Users\\v_sur\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe', 'E:\\ProjectTrading\\merge_feature.py']
+2026-01-03 23:37:13 [INFO] ----- STDOUT -----
+2026-01-03 23:37:13 [INFO] 2026-01-03 23:36:58 [INFO] ==== Merge Features Started (run_id=MERGE_20260103_233658) ====
+2026-01-03 23:36:58 [INFO] Dry-run mode: False
+2026-01-03 23:36:58 [INFO] Creating SQLAlchemy engine...
+2026-01-03 23:36:58 [INFO] Connected to Azure SQL successfully.
+2026-01-03 23:36:58 [INFO] Database connection completed in 0.54 seconds.
+2026-01-03 23:36:59 [INFO] Loaded 25,740 raw price rows.
+2026-01-03 23:36:59 [INFO] Load raw prices completed in 0.59 seconds.
+2026-01-03 23:37:11 [INFO] Loaded 971,178 indicator rows.
+2026-01-03 23:37:11 [INFO] Load indicators completed in 11.92 seconds.
+2026-01-03 23:37:12 [INFO] Pivoted indicators to wide format: 21 columns.
+2026-01-03 23:37:12 [INFO] Pivot indicators completed in 0.70 seconds.
+2026-01-03 23:37:12 [INFO] Merged dataset: 25,740 rows, 33 columns.
+2026-01-03 23:37:12 [INFO] Merge raw + indicators completed in 0.12 seconds.
+2026-01-03 23:37:12 [INFO] Writing 25,740 rows to tblMergedFeatures in batches of 100...
+2026-01-03 23:37:12 [INFO] Inserting batch 1 (100 rows)...
+2026-01-03 23:37:12 [INFO] Failed writing features to SQL: ('07006', '[07006] [Microsoft][ODBC Driver 18 for SQL Server]Restricted data type attribute violation (0) (SQLBindParameter)')
+2026-01-03 23:37:12 [INFO] Fatal error in merge pipeline: ('07006', '[07006] [Microsoft][ODBC Driver 18 for SQL Server]Restricted data type attribute violation (0) (SQLBindParameter)')
+2026-01-03 23:37:12 [INFO] Merge did NOT complete successfully.
+2026-01-03 23:37:13 [INFO] Completed: merge_feature.py
+2026-01-03 23:37:13 [INFO] === RUN SUMMARY ===
+2026-01-03 23:37:13 [INFO] INGESTION:   SKIPPED
+2026-01-03 23:37:13 [INFO] MERGE:       SKIPPED
+2026-01-03 23:37:13 [INFO] INDICATORS:  SKIPPED
+2026-01-03 23:37:13 [INFO] FEATURES:    RUN
+2026-01-03 23:37:13 [INFO] DRY_RUN:     False
+2026-01-03 23:37:13 [INFO] ====================
+2026-01-03 23:37:13 [INFO] === MASTER ORCHESTRATOR COMPLETED ===

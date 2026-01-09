@@ -1,0 +1,26 @@
+2026-01-02 22:15:28 [INFO] === MERGE STARTED: Staging → RawPrices ===
+2026-01-02 22:15:28 [INFO] DB Server: suresh-trading-sql.database.windows.net, Database: TradingDB
+2026-01-02 22:15:28 [INFO] Validating staging timestamps...
+2026-01-02 22:15:28 [INFO] Timestamp validation passed — no invalid rows.
+2026-01-02 22:15:28 [INFO] Fetching pending rows per symbol...
+2026-01-02 22:15:28 [INFO] Pending rows per symbol:
+2026-01-02 22:15:28 [INFO]   AAPL: 1170
+2026-01-02 22:15:28 [INFO]   BCE.TO: 1110
+2026-01-02 22:15:28 [INFO]   BMO.TO: 1110
+2026-01-02 22:15:28 [INFO]   BNS.TO: 1170
+2026-01-02 22:15:28 [INFO]   CP.TO: 1065
+2026-01-02 22:15:28 [INFO]   MSFT: 1170
+2026-01-02 22:15:29 [INFO]   NA.TO: 1086
+2026-01-02 22:15:29 [INFO]   TD.TO: 1170
+2026-01-02 22:15:29 [INFO] Beginning SQL transaction...
+2026-01-02 22:15:29 [INFO] Inserting new rows into tblRawPrices...
+2026-01-02 22:15:29 [INFO] Inserted 3017 new rows into tblRawPrices.
+2026-01-02 22:15:30 [INFO] Marking staging rows as Exported...
+2026-01-02 22:15:30 [INFO] Marked 9051 staging rows as Exported.
+2026-01-02 22:15:30 [INFO] Cleaning duplicates from tblRawPrices (safety net)...
+2026-01-02 22:15:30 [INFO] Duplicate cleanup removed 0 rows.
+2026-01-02 22:15:30 [INFO] Committing transaction...
+2026-01-02 22:15:30 [INFO] Fetching per-symbol merge summary...
+2026-01-02 22:15:30 [INFO] Rows inserted in this MERGE:
+2026-01-02 22:15:30 [INFO] Total rows in RawPrices after merge: 25740
+2026-01-02 22:15:30 [INFO] === MERGE COMPLETED in 1.69 seconds ===

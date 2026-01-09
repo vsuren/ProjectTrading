@@ -1,0 +1,30 @@
+2026-01-05 17:27:02 [INFO] === MASTER ORCHESTRATOR STARTED ===
+2026-01-05 17:27:02 [INFO] STEP 1 SKIPPED
+2026-01-05 17:27:02 [INFO] STEP 2 SKIPPED
+2026-01-05 17:27:02 [INFO] STEP 3 SKIPPED
+2026-01-05 17:27:02 [INFO] STEP 4 SKIPPED
+2026-01-05 17:27:02 [INFO] STEP 5: Generate Signal Features → tblSignalFeatures
+2026-01-05 17:27:02 [INFO] Running: ['c:\\Users\\v_sur\\AppData\\Local\\Programs\\Python\\Python311\\python.exe', 'E:\\ProjectTrading\\generate_signal_features.py']
+2026-01-05 17:27:06 [INFO] ----- STDOUT -----
+2026-01-05 17:27:06 [INFO] 2026-01-05 17:27:04 [INFO] ==== Signal Features Started (run_id=SIGNAL_20260105_172704) ====
+2026-01-05 17:27:04 [INFO] Dry-run mode: False, REBUILD_MODE: False
+2026-01-05 17:27:04 [INFO] Creating SQLAlchemy engine for Signal Features...
+2026-01-05 17:27:05 [INFO] Connected to Azure SQL successfully.
+2026-01-05 17:27:05 [INFO] Loaded 0 incremental rows from tblMergedFeatures.
+2026-01-05 17:27:05 [INFO] No new rows found in tblMergedFeatures. Nothing to insert into tblSignalFeatures.
+2026-01-05 17:27:05 [INFO] ==== Signal Features Completed (no work) ====
+2026-01-05 17:27:06 [INFO] ----- STDERR -----
+2026-01-05 17:27:06 [INFO] 0.01s - Debugger warning: It seems that frozen modules are being used, which may
+0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+0.00s - to python to disable frozen modules.
+0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+2026-01-05 17:27:06 [INFO] Completed: generate_signal_features.py
+2026-01-05 17:27:06 [INFO] === RUN SUMMARY ===
+2026-01-05 17:27:06 [INFO] INGESTION:        SKIPPED
+2026-01-05 17:27:06 [INFO] MERGE:            SKIPPED
+2026-01-05 17:27:06 [INFO] INDICATORS:       SKIPPED
+2026-01-05 17:27:06 [INFO] FEATURES:         SKIPPED
+2026-01-05 17:27:06 [INFO] SIGNAL FEATURES:  RUN
+2026-01-05 17:27:06 [INFO] DRY_RUN:          False
+2026-01-05 17:27:06 [INFO] ====================
+2026-01-05 17:27:06 [INFO] === MASTER ORCHESTRATOR COMPLETED ===

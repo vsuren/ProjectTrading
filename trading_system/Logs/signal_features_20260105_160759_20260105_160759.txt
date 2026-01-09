@@ -1,0 +1,12 @@
+2026-01-05 16:07:59 [INFO] ==== Signal Features Started (run_id=SIGNAL_20260105_160759) ====
+2026-01-05 16:07:59 [INFO] Dry-run mode: True, REBUILD_MODE: False
+2026-01-05 16:07:59 [INFO] Creating SQLAlchemy engine for Signal Features...
+2026-01-05 16:08:00 [INFO] Connected to Azure SQL successfully.
+2026-01-05 16:08:01 [INFO] Loaded 25,740 incremental rows from tblMergedFeatures.
+2026-01-05 16:08:01 [INFO] Computed derived ML features (Range_Pct, Body_Pct, Momentum_10, Volatility_20, Returns).
+2026-01-05 16:08:01 [INFO] Computed Target (next-bar return).
+2026-01-05 16:08:01 [INFO] Feature + Target computation completed in 0.14 seconds.
+2026-01-05 16:08:01 [INFO] Prepared final DataFrame for tblSignalFeatures: 25,740 rows, 42 columns.
+2026-01-05 16:08:01 [INFO] Dry-run mode: NOT writing 25,740 rows to tblSignalFeatures.
+2026-01-05 16:08:01 [INFO] Write to tblSignalFeatures completed in 0.01 seconds.
+2026-01-05 16:08:01 [INFO] ==== Signal Features Completed Successfully ====
