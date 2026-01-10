@@ -3,7 +3,6 @@ import sys
 from datetime import datetime
 import argparse
 import time
-import json
 
 import pandas as pd
 import numpy as np
@@ -11,7 +10,6 @@ import sqlalchemy as sa
 from sklearn.ensemble import HistGradientBoostingClassifier
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
-from sklearn.inspection import permutation_importance
 import joblib
 
 # Add project root to path for imports
@@ -21,12 +19,10 @@ sys.path.insert(0, PROJECT_ROOT)
 from trading_system.config.config_loader import load_db_config
 from trading_system.engine.logger import log, set_log_prefix
 
-
 # ============================================================
-# SECTION: FLAGS & GLOBAL CONFIGURATION
+# FLAGS & CONSTANTS
 # ============================================================
-
-DRY_RUN = False  # FALSE
+DRY_RUN = False
 
 LABEL_TYPE = "DIRECTION_5M"
 LABEL_VERSION = "v1"
@@ -36,29 +32,27 @@ HORIZON_MINUTES = 5
 MODEL_DIR = os.path.join(PROJECT_ROOT, "models")
 os.makedirs(MODEL_DIR, exist_ok=True)
 
-
 # ============================================================
-# SECTION: TIMING & LOGGING HELPERS
+# Timing helper
 # ============================================================
-
-def log_timing(label: str, start_time: float) -> None:
+def log_timing(label, start_time):
     elapsed = time.time() - start_time
     log(f"{label} completed in {elapsed:0.2f} seconds.")
 
-
-def setup_logging() -> str:
+# ============================================================
+# Logging setup
+# ============================================================
+def setup_logging():
     ts = datetime.now().strftime("%Y%m%d_%H%M%S")
     run_id = f"TRAIN_{ts}"
     set_log_prefix(f"train_model_{ts}")
     log(f"==== Model Training Started (run_id={run_id}) ====")
     return run_id
 
-
 # ============================================================
-# SECTION: DATABASE CONNECTION & HELPERS
+# Build SQLAlchemy engine (reuse pattern from labeling script)
 # ============================================================
-
-def build_engine(cfg) -> sa.engine.Engine:
+def build_engine(cfg):
     server = cfg["SERVER"]
     database = cfg["DATABASE"]
     username = cfg["USERNAME"]
@@ -82,51 +76,14 @@ def build_engine(cfg) -> sa.engine.Engine:
         log(f"Failed to connect to Azure SQL: {e}")
         raise
 
-
-def load_active_feature_set(engine) -> list:
-    query = sa.text("""
-        SELECT fsm.FeatureName
-        FROM dbo.tblFeatureSetMembers fsm
-        INNER JOIN dbo.tblFeatureSets fs
-            ON fs.FeatureSetID = fsm.FeatureSetID
-        WHERE fs.IsActive = 1
-        ORDER BY fsm.Ordinal;
-    """)
-
-    df = pd.read_sql(query, engine)
-    feature_names = df["FeatureName"].tolist()
-
-    if not feature_names:
-        raise RuntimeError("No active feature set found or it contains no features.")
-
-    log(f"Active feature set loaded with {len(feature_names)} features: {feature_names}")
-    return feature_names
-
-
-def get_active_feature_set_id(engine) -> int:
-    query = sa.text("""
-        SELECT FeatureSetID
-        FROM dbo.tblFeatureSets
-        WHERE IsActive = 1;
-    """)
-    df = pd.read_sql(query, engine)
-
-    if df.empty:
-        raise RuntimeError("No active feature set found in tblFeatureSets (IsActive = 1).")
-
-    if len(df) > 1:
-        raise RuntimeError("Multiple active feature sets found. Ensure only one has IsActive = 1.")
-
-    feature_set_id = int(df.iloc[0]["FeatureSetID"])
-    log(f"Active FeatureSetID: {feature_set_id}")
-    return feature_set_id
-
-
 # ============================================================
-# SECTION: DATA LOADING
+# Load labeled data
 # ============================================================
-
-def load_labeled_features(engine) -> pd.DataFrame:
+def load_labeled_features(engine):
+    """
+    Load labeled features for the given horizon/label/version combo.
+    We keep this dynamic and only filter by metadata columns.
+    """
     query = """
         SELECT *
         FROM dbo.tblLabeledFeatures
@@ -134,7 +91,7 @@ def load_labeled_features(engine) -> pd.DataFrame:
           AND LabelType = :label_type
           AND LabelVersion = :label_version
           AND FeatureVersion = :feature_version
-        ORDER BY Symbol, PriceTimestamp;
+        ORDER BY Symbol, PriceTimestamp
     """
 
     df = pd.read_sql(
@@ -151,47 +108,70 @@ def load_labeled_features(engine) -> pd.DataFrame:
     log(f"Loaded {len(df):,} rows from tblLabeledFeatures for training.")
     return df
 
-
 # ============================================================
-# SECTION: FEATURE & LABEL CONSTRUCTION
+# Build X and y dynamically
 # ============================================================
-
-def build_features_and_labels(df: pd.DataFrame, active_feature_names: list):
+def build_features_and_labels(df):
     if df.empty:
         log("No rows available in tblLabeledFeatures for training.")
         return None, None, None
 
     df = df.copy()
 
+    # Ensure Label exists
     if "Label" not in df.columns:
         raise RuntimeError("Expected column 'Label' not found in tblLabeledFeatures.")
 
+    # Drop non-feature/meta columns
+    meta_cols = {
+        "Symbol",
+        "PriceTimestamp",
+        "LoadTimestamp",
+        "SourceRunID",
+        "RunId",
+        "HorizonMinutes",
+        "LabelType",
+        "LabelVersion",
+        "FeatureVersion",
+        "IsTrainableRow",
+        "IsOutlier",
+        "RegimeTag",
+        "MarketSession",
+	"FutureClose_tN",
+	"Return_t_to_tN"
+    }
+
+    # y = Label
     y = df["Label"]
 
-    available_features = [c for c in active_feature_names if c in df.columns]
-    missing_features = [c for c in active_feature_names if c not in df.columns]
+    # Candidate feature columns = all numeric columns excluding meta + Label
+    numeric_cols = df.select_dtypes(include=[np.number]).columns.tolist()
+    feature_cols = [
+        c for c in numeric_cols
+        if c not in meta_cols and c != "Label"
+    ]
 
-    if missing_features:
-        log(f"[WARNING] Missing features: {missing_features}")
+    if not feature_cols:
+        raise RuntimeError("No numeric feature columns found for training.")
 
-    if not available_features:
-        raise RuntimeError("None of the active feature set columns were found.")
+    X = df[feature_cols]
 
-    X = df[available_features]
-
-    log(f"Feature columns used for training ({len(available_features)}): {available_features}")
+    log(f"Feature columns used for training ({len(feature_cols)}): {feature_cols}")
     log(f"Training dataset shape: X={X.shape}, y={y.shape}")
 
-    return X, y, available_features
-
+    return X, y, feature_cols
 
 # ============================================================
-# SECTION: TRAIN/TEST SPLIT
+# Train/test split (time-based)
 # ============================================================
-
-def time_based_split(X, y, train_ratio: float = 0.8):
+def time_based_split(X, y, train_ratio=0.8):
     n = len(X)
+    if n == 0:
+        raise RuntimeError("No rows available for train/test split.")
+
     split_index = int(n * train_ratio)
+    if split_index == 0 or split_index == n:
+        raise RuntimeError("Train/test split resulted in empty train or test set.")
 
     X_train = X.iloc[:split_index]
     y_train = y.iloc[:split_index]
@@ -199,15 +179,16 @@ def time_based_split(X, y, train_ratio: float = 0.8):
     X_test = X.iloc[split_index:]
     y_test = y.iloc[split_index:]
 
-    log(f"Time-based split at index {split_index} (train={len(X_train):,}, test={len(X_test):,}).")
+    log(
+        f"Time-based split at index {split_index} "
+        f"(train={len(X_train):,}, test={len(X_test):,})."
+    )
 
     return X_train, X_test, y_train, y_test
 
-
 # ============================================================
-# SECTION: MODEL TRAINING
+# Train model
 # ============================================================
-
 def train_model(X_train, y_train):
     log("Initializing HistGradientBoostingClassifier...")
 
@@ -215,7 +196,7 @@ def train_model(X_train, y_train):
         learning_rate=0.05,
         max_depth=6,
         max_iter=300,
-        class_weight="balanced",
+        class_weight="balanced"
     )
 
     t0 = time.time()
@@ -223,28 +204,29 @@ def train_model(X_train, y_train):
     log_timing("Model training", t0)
 
     return model
-
-
 # ============================================================
-# SECTION: MODEL EVALUATION
+# Evaluate model
 # ============================================================
-
-def evaluate_model(model, X_train, y_train, X_test, y_test) -> dict:
+def evaluate_model(model, X_train, y_train, X_test, y_test):
     log("Evaluating model...")
 
+    # Training accuracy
     y_train_pred = model.predict(X_train)
     train_acc = accuracy_score(y_train, y_train_pred)
 
+    # Test accuracy
     y_test_pred = model.predict(X_test)
     test_acc = accuracy_score(y_test, y_test_pred)
 
     log(f"Training Accuracy: {train_acc:0.4f}")
     log(f"Test Accuracy: {test_acc:0.4f}")
 
+    # Confusion matrix
     cm = confusion_matrix(y_test, y_test_pred)
     log("Confusion Matrix:")
     log(str(cm))
 
+    # Classification report
     report = classification_report(y_test, y_test_pred)
     log("Classification Report:")
     log("\n" + report)
@@ -256,43 +238,13 @@ def evaluate_model(model, X_train, y_train, X_test, y_test) -> dict:
         "classification_report": report,
     }
 
-
-def log_feature_importance(model, X_test, y_test, feature_cols):
-    log("Computing permutation feature importance...")
-
-    result = permutation_importance(
-        model,
-        X_test,
-        y_test,
-        n_repeats=5,
-        random_state=42,
-        n_jobs=-1,
-    )
-
-    importances = result.importances_mean
-
-    fi = sorted(zip(feature_cols, importances), key=lambda x: x[1], reverse=True)
-
-    log("=== Permutation Feature Importances (Descending) ===")
-    for name, score in fi:
-        log(f"{name}: {score:0.5f}")
-
-
-def build_metrics_json(eval_results: dict) -> str:
-    payload = {
-        "training_accuracy": float(eval_results["train_accuracy"]),
-        "test_accuracy": float(eval_results["test_accuracy"]),
-        "confusion_matrix": eval_results["confusion_matrix"].tolist(),
-        "classification_report": eval_results["classification_report"],
-    }
-    return json.dumps(payload)
-
-
 # ============================================================
-# SECTION: MODEL PERSISTENCE
+# Save model
 # ============================================================
-
-def save_model(model, feature_cols, run_id: str) -> str:
+def save_model(model, feature_cols, run_id):
+    """
+    Save the trained model and metadata (feature columns, run_id, versions).
+    """
     model_payload = {
         "model": model,
         "feature_columns": feature_cols,
@@ -312,76 +264,48 @@ def save_model(model, feature_cols, run_id: str) -> str:
 
     return filepath
 
+### MODEL DIAGNOSTICS: PERMUTATION FEATURE IMPORTANCE (HGB COMPATIBLE)
+from sklearn.inspection import permutation_importance
 
+def log_feature_importance(model, X_test, y_test, feature_cols):
+    """
+    Computes and logs permutation feature importance for any model,
+    including HistGradientBoostingClassifier.
+    """
+    log("Computing permutation feature importance...")
+
+    result = permutation_importance(
+        model,
+        X_test,
+        y_test,
+        n_repeats=5,
+        random_state=42,
+        n_jobs=-1
+    )
+
+    importances = result.importances_mean
+
+    fi = sorted(
+        zip(feature_cols, importances),
+        key=lambda x: x[1],
+        reverse=True
+    )
+
+    log("=== Permutation Feature Importances (Descending) ===")
+    for name, score in fi:
+        log(f"{name}: {score:0.5f}")
 # ============================================================
-# SECTION: MODEL REGISTRY
+# Main
 # ============================================================
-
-def register_model(
-    engine,
-    model_name: str,
-    run_id: str,
-    feature_set_id: int,
-    label_type: str,
-    label_version: str,
-    horizon_minutes: int,
-    metrics_json: str,
-    artifact_path: str,
-) -> None:
-
-    query = sa.text("""
-        INSERT INTO dbo.tblModelRegistry (
-            ModelName,
-            RunID,
-            FeatureSetID,
-            LabelType,
-            LabelVersion,
-            HorizonMinutes,
-            MetricsJson,
-            ArtifactPath
-        )
-        VALUES (
-            :ModelName,
-            :RunID,
-            :FeatureSetID,
-            :LabelType,
-            :LabelVersion,
-            :HorizonMinutes,
-            :MetricsJson,
-            :ArtifactPath
-        );
-    """)
-
-    params = {
-        "ModelName": model_name,
-        "RunID": run_id,
-        "FeatureSetID": feature_set_id,
-        "LabelType": label_type,
-        "LabelVersion": label_version,
-        "HorizonMinutes": horizon_minutes,
-        "MetricsJson": metrics_json,
-        "ArtifactPath": artifact_path,
-    }
-
-    log("Registering model in dbo.tblModelRegistry...")
-    with engine.begin() as conn:
-        conn.execute(query, params)
-    log("Model registered successfully in tblModelRegistry.")
-
-
-# ============================================================
-# SECTION: MAIN ORCHESTRATION
-# ============================================================
-
 def main():
     global DRY_RUN
 
     parser = argparse.ArgumentParser()
-    parser.add_argument("--dry-run", action="store_true")
+    parser.add_argument("--dry-run", action="store_true", help="Train and evaluate but do NOT save the model.")
     args = parser.parse_args()
 
     if args.dry_run:
-        DRY_RUN = True  # TRUE
+        DRY_RUN = True
 
     run_id = setup_logging()
     log(f"Dry-run mode: {DRY_RUN}")
@@ -389,51 +313,42 @@ def main():
     cfg = load_db_config()
     engine = build_engine(cfg)
 
+    # Load labeled data
     t0 = time.time()
     df_labeled = load_labeled_features(engine)
     log_timing("Load labeled features", t0)
 
     if df_labeled.empty:
-        log("No labeled rows found. Exiting.")
+        log("No labeled rows found for training. Exiting.")
+        log("==== Model Training Completed (no work) ====")
         return
 
-    active_feature_names = load_active_feature_set(engine)
-    active_feature_set_id = get_active_feature_set_id(engine)
-
-    X, y, feature_cols = build_features_and_labels(df_labeled, active_feature_names)
-    if X is None:
+    # Build X, y
+    X, y, feature_cols = build_features_and_labels(df_labeled)
+    if X is None or y is None:
+        log("No features or labels available for training. Exiting.")
+        log("==== Model Training Completed (no work) ====")
         return
 
-    X_train, X_test, y_train, y_test = time_based_split(X, y)
+    # Train/test split
+    X_train, X_test, y_train, y_test = time_based_split(X, y, train_ratio=0.8)
 
+    # Train model
     model = train_model(X_train, y_train)
 
+    # Evaluate
     eval_results = evaluate_model(model, X_train, y_train, X_test, y_test)
 
+    # >>> ADD THIS LINE RIGHT HERE <<<
     log_feature_importance(model, X_test, y_test, feature_cols)
 
+    # Save model (only if not dry-run)
     if DRY_RUN:
-        log("[DRY_RUN] Skipping model save and registry insertion.")
+        log("[DRY_RUN] Skipping model save.")
     else:
-        model_path = save_model(model, feature_cols, run_id)
-        metrics_json = build_metrics_json(eval_results)
-
-        model_name = f"HGB_{LABEL_TYPE}_{HORIZON_MINUTES}m_{LABEL_VERSION}_{FEATURE_VERSION}"
-
-        register_model(
-            engine=engine,
-            model_name=model_name,
-            run_id=run_id,
-            feature_set_id=active_feature_set_id,
-            label_type=LABEL_TYPE,
-            label_version=LABEL_VERSION,
-            horizon_minutes=HORIZON_MINUTES,
-            metrics_json=metrics_json,
-            artifact_path=model_path,
-        )
+        save_model(model, feature_cols, run_id)
 
     log("==== Model Training Completed Successfully ====")
-
 
 if __name__ == "__main__":
     main()
