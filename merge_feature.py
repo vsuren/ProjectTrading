@@ -16,6 +16,7 @@ sys.path.insert(0, PROJECT_ROOT)
 
 from trading_system.config.config_loader import load_db_config
 from trading_system.engine.logger import log, set_log_prefix
+from trading_system.features.features_engineered import add_engineered_features
 
 
 # ============================================================
@@ -179,6 +180,8 @@ def merge_features(df_prices, df_features, run_id):
     log(f"Merged dataset: {merged.shape[0]:,} rows, {merged.shape[1]:,} columns.")
     return merged
 
+
+
 # ============================================================
 # Write to SQL (Temp Table + pandas.to_sql + MERGE — Option C)
 # ============================================================
@@ -274,6 +277,24 @@ def write_to_sql(engine, df, dry_run):
         conn.exec_driver_sql("DROP TABLE ##TempMergeFeatures;")
 
     log("UPSERT MERGE completed successfully (pandas.to_sql method).")
+# --- Log final SQL schema of tblMergedFeatures ---
+    from sqlalchemy import text
+
+    with engine.connect() as conn:
+        result = conn.execute(text("""
+            SELECT COLUMN_NAME
+            FROM INFORMATION_SCHEMA.COLUMNS
+            WHERE TABLE_NAME = 'tblMergedFeatures'
+            ORDER BY ORDINAL_POSITION
+        """))  
+        sql_columns = [row[0] for row in result]
+
+    log(f"Final SQL column count: {len(sql_columns)}")
+    log("Final SQL columns:")
+    for col in sql_columns:
+        log(f"  - {col}")
+
+
 
 # ============================================================
 # Main
@@ -299,6 +320,11 @@ def main():
     df_ind = load_indicators(engine)
     df_wide = pivot_indicators(df_ind)
     df_merged = merge_features(df_prices, df_wide, run_id)
+
+    print(">>> ENGINEERED FEATURES FUNCTION CALLED <<<")
+    df_merged = add_engineered_features(df_merged)
+    print(f"Columns after engineered features: {len(df_merged.columns)}")
+
 
     df_merged.sort_values(["Symbol", "PriceTimestamp"], inplace=True)
     df_merged.reset_index(drop=True, inplace=True)

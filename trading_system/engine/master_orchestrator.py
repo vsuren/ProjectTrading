@@ -18,7 +18,7 @@ RUN_MERGE = False
 RUN_INDICATORS = False
 RUN_FEATURES = False
 RUN_LABELS = True          # <-- NEW FLAG
-DRY_RUN = False            # Applies ONLY to indicators + features + labels
+DRY_RUN = True            # Applies ONLY to indicators + features + labels
 
 # Script paths
 INGEST_SCRIPT = os.path.join(PROJECT_ROOT, "trading_system", "ingestion", "ingestion_1m_range_staging_day.py")

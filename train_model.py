@@ -26,7 +26,7 @@ from trading_system.engine.logger import log, set_log_prefix
 # SECTION: FLAGS & GLOBAL CONFIGURATION
 # ============================================================
 
-DRY_RUN = False  # FALSE
+DRY_RUN = True  # FALSE
 
 LABEL_TYPE = "DIRECTION_5M"
 LABEL_VERSION = "v1"
