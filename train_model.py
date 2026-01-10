@@ -22,7 +22,7 @@ from trading_system.engine.logger import log, set_log_prefix
 # ============================================================
 # FLAGS & CONSTANTS
 # ============================================================
-DRY_RUN = True
+DRY_RUN = False
 
 LABEL_TYPE = "DIRECTION_5M"
 LABEL_VERSION = "v1"
@@ -264,6 +264,36 @@ def save_model(model, feature_cols, run_id):
 
     return filepath
 
+### MODEL DIAGNOSTICS: PERMUTATION FEATURE IMPORTANCE (HGB COMPATIBLE)
+from sklearn.inspection import permutation_importance
+
+def log_feature_importance(model, X_test, y_test, feature_cols):
+    """
+    Computes and logs permutation feature importance for any model,
+    including HistGradientBoostingClassifier.
+    """
+    log("Computing permutation feature importance...")
+
+    result = permutation_importance(
+        model,
+        X_test,
+        y_test,
+        n_repeats=5,
+        random_state=42,
+        n_jobs=-1
+    )
+
+    importances = result.importances_mean
+
+    fi = sorted(
+        zip(feature_cols, importances),
+        key=lambda x: x[1],
+        reverse=True
+    )
+
+    log("=== Permutation Feature Importances (Descending) ===")
+    for name, score in fi:
+        log(f"{name}: {score:0.5f}")
 # ============================================================
 # Main
 # ============================================================
@@ -309,6 +339,9 @@ def main():
     # Evaluate
     eval_results = evaluate_model(model, X_train, y_train, X_test, y_test)
 
+    # >>> ADD THIS LINE RIGHT HERE <<<
+    log_feature_importance(model, X_test, y_test, feature_cols)
+
     # Save model (only if not dry-run)
     if DRY_RUN:
         log("[DRY_RUN] Skipping model save.")
@@ -316,7 +349,6 @@ def main():
         save_model(model, feature_cols, run_id)
 
     log("==== Model Training Completed Successfully ====")
-
 
 if __name__ == "__main__":
     main()
