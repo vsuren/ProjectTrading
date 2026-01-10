@@ -19,7 +19,7 @@ from trading_system.engine.logger import log, set_log_prefix
 # FLAGS & CONSTANTS
 # ============================================================
 DRY_RUN = False
-REBUILD_MODE = False
+REBUILD_MODE = True
 
 LABEL_TYPE = "DIRECTION_5M"
 LABEL_VERSION = "v1"

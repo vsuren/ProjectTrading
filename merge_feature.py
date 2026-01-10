@@ -1,7 +1,5 @@
 import os
 import sys
-import logging
-from logging.handlers import RotatingFileHandler
 from datetime import datetime
 import argparse
 import time
@@ -23,15 +21,6 @@ from trading_system.features.features_engineered import add_engineered_features
 # 0. SCRIPT-LEVEL DRY RUN FLAG
 # ============================================================
 DRY_RUN = False
-
-
-# ============================================================
-# Timing Helper
-# ============================================================
-
-def log_timing(label, start_time):
-    elapsed = time.time() - start_time
-    log(f"{label} completed in {elapsed:0.2f} seconds.")
 
 
 # ============================================================
@@ -181,9 +170,8 @@ def merge_features(df_prices, df_features, run_id):
     return merged
 
 
-
 # ============================================================
-# Write to SQL (Temp Table + pandas.to_sql + MERGE — Option C)
+# Write to SQL (Dynamic MERGE)
 # ============================================================
 
 def write_to_sql(engine, df, dry_run):
@@ -191,65 +179,43 @@ def write_to_sql(engine, df, dry_run):
         log("Dry-run mode: NOT writing to SQL.")
         return
 
-    # Explicit numeric columns
-    numeric_cols = [
-        "OpenPrice", "HighPrice", "LowPrice", "ClosePrice", "Volume",
-        "ADX_14", "ATR_14",
-        "BBANDS_LOWER_20", "BBANDS_MIDDLE_20", "BBANDS_UPPER_20",
-        "BOLL_PCTB_20", "BOLL_WIDTH_20",
-        "CCI_20",
-        "EMA_20", "EMA_200", "EMA_50", "EMA_9",
-        "RSI_14",
-        "SMA_20", "SMA_200",
-        "STOCH_D_14", "STOCH_K_14",
-        "SUPERTREND_10",
-        "WILLIAMS_R_14",
-        "DayOfWeek",
-        "SourceIndicatorCount", "MissingIndicatorCount"
-    ]
-
-    for col in numeric_cols:
-        if col in df.columns:
-            df[col] = pd.to_numeric(df[col], errors="coerce")
-
-    # BIT columns
+    # Convert BIT columns
     df["IsRegularSession"] = df["IsRegularSession"].astype(int)
     df["IsAfterHours"] = df["IsAfterHours"].astype(int)
 
-    # DATETIME columns
+    # Convert datetime columns
     df["PriceTimestamp"] = pd.to_datetime(df["PriceTimestamp"], errors="coerce")
     df["RunTimestamp"] = pd.to_datetime(df["RunTimestamp"], errors="coerce")
 
     # Replace NaN with None
     df = df.where(pd.notnull(df), None)
 
+    # Dynamic column list
     columns = df.columns.tolist()
     col_list = ", ".join(f"[{c}]" for c in columns)
 
-    # 1. Drop temp table if exists
+    # Drop temp table
     with engine.begin() as conn:
         conn.exec_driver_sql(
             "IF OBJECT_ID('tempdb..##TempMergeFeatures') IS NOT NULL DROP TABLE ##TempMergeFeatures;"
         )
 
-    # 2. Create empty temp table with correct schema
+    # Create temp table with full schema
     with engine.begin() as conn:
         conn.exec_driver_sql(
             f"SELECT TOP 0 {col_list} INTO ##TempMergeFeatures FROM dbo.tblMergedFeatures;"
         )
 
-    # 3. Use pandas.to_sql to load data into temp table
+    # Load data
     log(f"Loading {len(df):,} rows into ##TempMergeFeatures via pandas.to_sql...")
     df.to_sql(
         name="##TempMergeFeatures",
         con=engine,
         if_exists="append",
-        index=False,
-        method=None
-
+        index=False
     )
 
-    # 4. MERGE from temp table into target
+    # Dynamic MERGE clause
     update_clause = ", ".join(
         f"Target.[{c}] = Source.[{c}]"
         for c in columns
@@ -272,28 +238,10 @@ def write_to_sql(engine, df, dry_run):
     with engine.begin() as conn:
         conn.exec_driver_sql(merge_sql)
 
-    # 5. Drop temp table
     with engine.begin() as conn:
         conn.exec_driver_sql("DROP TABLE ##TempMergeFeatures;")
 
-    log("UPSERT MERGE completed successfully (pandas.to_sql method).")
-# --- Log final SQL schema of tblMergedFeatures ---
-    from sqlalchemy import text
-
-    with engine.connect() as conn:
-        result = conn.execute(text("""
-            SELECT COLUMN_NAME
-            FROM INFORMATION_SCHEMA.COLUMNS
-            WHERE TABLE_NAME = 'tblMergedFeatures'
-            ORDER BY ORDINAL_POSITION
-        """))  
-        sql_columns = [row[0] for row in result]
-
-    log(f"Final SQL column count: {len(sql_columns)}")
-    log("Final SQL columns:")
-    for col in sql_columns:
-        log(f"  - {col}")
-
+    log("UPSERT MERGE completed successfully with dynamic column handling.")
 
 
 # ============================================================
@@ -321,10 +269,9 @@ def main():
     df_wide = pivot_indicators(df_ind)
     df_merged = merge_features(df_prices, df_wide, run_id)
 
-    print(">>> ENGINEERED FEATURES FUNCTION CALLED <<<")
+    log("Applying engineered features...")
     df_merged = add_engineered_features(df_merged)
-    print(f"Columns after engineered features: {len(df_merged.columns)}")
-
+    log(f"Columns after engineered features: {len(df_merged.columns)}")
 
     df_merged.sort_values(["Symbol", "PriceTimestamp"], inplace=True)
     df_merged.reset_index(drop=True, inplace=True)

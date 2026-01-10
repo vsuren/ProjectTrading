@@ -66,7 +66,7 @@ def add_engineered_features(df: pd.DataFrame) -> pd.DataFrame:
 
     # --- 5. Momentum / reversal ---
     df["Return_zscore"] = (
-    	df["ClosePrice"].pct_change().fillna(0).rolling(50).apply(
+        df["ClosePrice"].pct_change().fillna(0).rolling(50).apply(
             lambda x: np.nan if len(x) < 50 else (x.iloc[-1] - x.mean()) / (x.std() + 1e-9),
             raw=False
         )
@@ -79,13 +79,26 @@ def add_engineered_features(df: pd.DataFrame) -> pd.DataFrame:
     df["Volume_spike"] = (df["Volume_rel"] > 2).astype(int)
 
     df["Volume_percentile"] = (
-    	df["Volume"]
-    	.rolling(100)
-    	.apply(
+        df["Volume"]
+        .rolling(100)
+        .apply(
             lambda x: np.nan if len(x) < 100 else pd.Series(x).rank(pct=True).iloc[-1],
             raw=False
-    	)
+        )
     )
+
+    # --- 7. MACD (12, 26, 9) ---
+    def compute_macd(group):
+        group["EMA_12"] = group["ClosePrice"].ewm(span=12, adjust=False).mean()
+        group["EMA_26"] = group["ClosePrice"].ewm(span=26, adjust=False).mean()
+
+        group["MACD_line"] = group["EMA_12"] - group["EMA_26"]
+        group["MACD_signal"] = group["MACD_line"].ewm(span=9, adjust=False).mean()
+        group["MACD_histogram"] = group["MACD_line"] - group["MACD_signal"]
+
+        return group
+
+    df = df.groupby("Symbol", group_keys=False).apply(compute_macd)
 
     # Clean infinities
     df.replace([np.inf, -np.inf], np.nan, inplace=True)
